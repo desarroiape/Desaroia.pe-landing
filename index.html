@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DesarroIA.pe — Powering Tomorrow's Solutions</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              bg: '#080A12',
+              surface: '#0D0F1E',
+              border: 'rgba(255,255,255,0.07)',
+              purple: '#7B4EFF',
+              'purple-soft': '#9B76FF',
+              blue: '#2649A1',
+              'blue-mid': '#4A7BEF',
+              orange: '#F28948',
+              cream: '#F8F7F5',
+              muted: '#8890A8',
+            }
+          },
+          fontFamily: {
+            display: ['"Bebas Neue"', 'sans-serif'],
+            body: ['Poppins', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #7B4EFF;
+      --purple-soft: #9B76FF;
+      --blue: #2649A1;
+      --blue-mid: #4A7BEF;
+      --orange: #F28948;
+      --cream: #F8F7F5;
+      --muted: #8890A8;
+      --bg: #080A12;
+      --surface: #0D0F1E;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      line-height: 1;
+    }
+
+    /* Noise texture overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    }
+
+    /* Subtle grid pattern */
+    .grid-pattern {
+      background-image:
+        linear-gradient(rgba(123, 78, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(123, 78, 255, 0.035) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+
+    /* Glow orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(100px);
+    }
+
+    /* Typography */
+    .font-display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.02em; }
+
+    .display-xl {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(64px, 10vw, 144px);
+      line-height: 0.9;
+      letter-spacing: 0.01em;
+    }
+
+    .display-lg {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 7vw, 88px);
+      line-height: 0.92;
+      letter-spacing: 0.01em;
+    }
+
+    .display-md {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(28px, 3vw, 40px);
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+
+    /* Gradient text */
+    .grad-purple {
+      background: linear-gradient(135deg, #9B76FF 0%, #4A7BEF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .grad-orange {
+      background: linear-gradient(135deg, #F28948 0%, #FF8A3D 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Glass cards */
+    .card {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.065);
+      border-radius: 20px;
+      transition:
+        transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(123, 78, 255, 0.28);
+      box-shadow:
+        0 24px 60px -16px rgba(0, 0, 0, 0.5),
+        0 0 40px -20px rgba(123, 78, 255, 0.2);
+    }
+
+    .card-featured {
+      background: linear-gradient(135deg, rgba(123,78,255,0.1), rgba(38,73,161,0.08));
+      border: 1px solid rgba(123, 78, 255, 0.22);
+      border-radius: 20px;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #7B4EFF 0%, #4A7BEF 100%);
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      padding: 13px 28px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 10px 36px -8px rgba(123, 78, 255, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      transition:
+        transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.25s ease;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow:
+        0 18px 50px -8px rgba(123, 78, 255, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    }
+
+    .btn-primary:hover::before { opacity: 1; }
+    .btn-primary:active { transform: translateY(0) scale(0.99); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--cream);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 0.875rem;
+      padding: 12px 28px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      cursor: pointer;
+      transition:
+        transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+        border-color 0.2s ease,
+        background 0.2s ease;
+    }
+
+    .btn-ghost:hover {
+      transform: translateY(-2px);
+      border-color: rgba(123, 78, 255, 0.45);
+      background: rgba(123, 78, 255, 0.07);
+    }
+
+    .btn-ghost:active { transform: translateY(0); }
+
+    /* Badges */
+    .badge-purple {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(123, 78, 255, 0.1);
+      border: 1px solid rgba(123, 78, 255, 0.28);
+      color: #B09FFF;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+    .badge-orange {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(242, 137, 72, 0.1);
+      border: 1px solid rgba(242, 137, 72, 0.28);
+      color: #F8A96A;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+    /* Nav */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 0;
+      transition: background 0.3s ease, border-color 0.3s ease, padding 0.3s ease;
+    }
+
+    #navbar.scrolled {
+      background: rgba(8, 10, 18, 0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.055);
+      padding: 12px 0;
+    }
+
+    .nav-link {
+      color: var(--muted);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      position: relative;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 2px;
+      background: var(--purple-soft);
+      border-radius: 2px;
+      transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .nav-link:hover { color: var(--cream); }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link:focus-visible { outline: 2px solid var(--purple); outline-offset: 4px; border-radius: 3px; }
+
+    /* Pulse dot */
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.8); }
+    }
+    .pulse { animation: pulse-dot 2s ease-in-out infinite; }
+
+    /* Float animations */
+    @keyframes float-a {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-14px); }
+    }
+    @keyframes float-b {
+      0%, 100% { transform: translateY(0px) rotate(0.3deg); }
+      50% { transform: translateY(-9px) rotate(-0.3deg); }
+    }
+    @keyframes float-c {
+      0%, 100% { transform: translateY(0px); }
+      33% { transform: translateY(-7px); }
+      66% { transform: translateY(-3px); }
+    }
+
+    .float-a { animation: float-a 7s ease-in-out infinite; }
+    .float-b { animation: float-b 9s ease-in-out infinite; animation-delay: 1.5s; }
+    .float-c { animation: float-c 6s ease-in-out infinite; animation-delay: 3s; }
+
+    /* Fade-up entrance */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition:
+        opacity 0.75s ease,
+        transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 5px; }
+
+    /* Icon container */
+    .icon-wrap {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Service step number */
+    .step-num {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      margin: 0 auto 20px;
+    }
+
+    /* Horizontal rule */
+    .hr { border: none; border-top: 1px solid rgba(255,255,255,0.06); }
+
+    /* Testimonial quote mark */
+    .quote-mark {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 80px;
+      line-height: 0.7;
+      color: rgba(123,78,255,0.2);
+      margin-bottom: -10px;
+    }
+
+    /* Typewriter blink */
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    .blink { animation: blink 1s step-end infinite; }
+
+    /* Highlight span */
+    .ia-blue { color: var(--blue-mid); }
+
+    /* Logo container on dark bg */
+    .logo-pill {
+      background: white;
+      padding: 5px 10px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+  /* ═══ EXPANDABLE CHAT WIDGET ═══ */
+  #chat-widget {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 500;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  #chat-window {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    right: 0;
+    width: 360px;
+    height: 500px;
+    background: #0D0F1E;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow:
+      0 32px 64px -16px rgba(0,0,0,0.7),
+      0 0 40px -10px rgba(123,78,255,0.18);
+    transform-origin: bottom right;
+    transition:
+      opacity 0.25s ease,
+      transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+      visibility 0.25s ease;
+  }
+
+  #chat-window.chat-closed {
+    opacity: 0;
+    transform: scale(0.93) translateY(10px);
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  #chat-window.chat-open {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    visibility: visible;
+    pointer-events: all;
+  }
+
+  .chat-header {
+    padding: 16px 20px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .chat-header-info { text-align: left; }
+
+  .chat-header h2 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #F8F7F5;
+    margin: 0 0 2px;
+  }
+
+  .chat-header p {
+    font-size: 0.7rem;
+    color: #8890A8;
+    margin: 0;
+  }
+
+  .chat-header-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7B4EFF, #4A7BEF);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(123,78,255,0.35);
+  }
+
+  .chat-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .chat-status-dot {
+    width: 6px;
+    height: 6px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  .chat-status-text {
+    font-size: 0.65rem;
+    color: #4ade80;
+  }
+
+  .chat-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-behavior: smooth;
+  }
+
+  .chat-body::-webkit-scrollbar { width: 3px; }
+  .chat-body::-webkit-scrollbar-track { background: transparent; }
+  .chat-body::-webkit-scrollbar-thumb { background: rgba(123,78,255,0.3); border-radius: 2px; }
+
+  .msg-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 7px;
+  }
+
+  .msg-row.msg-user { flex-direction: row-reverse; }
+
+  .msg-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+    letter-spacing: 0.02em;
+  }
+
+  .msg-avatar.ai-av { background: linear-gradient(135deg, #7B4EFF, #4A7BEF); }
+  .msg-avatar.user-av { background: linear-gradient(135deg, #F28948, #FF6B3D); }
+
+  .msg-bubble {
+    max-width: 80%;
+    padding: 9px 13px;
+    font-size: 0.78rem;
+    line-height: 1.55;
+    color: rgba(248,247,245,0.88);
+  }
+
+  .msg-row.msg-ai .msg-bubble {
+    background: rgba(255,255,255,0.045);
+    border: 1px solid rgba(255,255,255,0.065);
+    border-radius: 4px 14px 14px 14px;
+  }
+
+  .msg-row.msg-user .msg-bubble {
+    background: rgba(123,78,255,0.18);
+    border: 1px solid rgba(123,78,255,0.25);
+    border-radius: 14px 4px 14px 14px;
+  }
+
+  .msg-loading {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 0;
+  }
+
+  .msg-loading span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #9B76FF;
+    animation: chat-bounce 1.2s ease-in-out infinite;
+  }
+
+  .msg-loading span:nth-child(2) { animation-delay: 0.15s; }
+  .msg-loading span:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes chat-bounce {
+    0%, 80%, 100% { transform: scale(0.65); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+
+  .chat-footer {
+    padding: 10px 14px 14px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+
+  #chat-form {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+
+  #chat-form:focus-within {
+    border-color: rgba(123,78,255,0.4);
+  }
+
+  #chat-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #F8F7F5;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.78rem;
+    padding: 11px 14px 6px;
+    resize: none;
+    min-height: 38px;
+    max-height: 80px;
+    line-height: 1.5;
+    display: block;
+  }
+
+  #chat-input::placeholder { color: #8890A8; }
+
+  .chat-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 5px 8px;
+  }
+
+  #chat-send {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: linear-gradient(135deg, #7B4EFF, #4A7BEF);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 7px 13px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 16px -4px rgba(123,78,255,0.5);
+    transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  #chat-send:hover { opacity: 0.88; transform: translateY(-1px); }
+  #chat-send:active { transform: translateY(0); }
+  #chat-send:focus-visible { outline: 2px solid #9B76FF; outline-offset: 2px; }
+
+  #chat-toggle-btn {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7B4EFF, #4A7BEF);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      0 8px 32px -8px rgba(123,78,255,0.65),
+      0 2px 12px rgba(0,0,0,0.4);
+    transition:
+      transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #chat-toggle-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 14px 40px -8px rgba(123,78,255,0.7), 0 4px 16px rgba(0,0,0,0.4);
+  }
+
+  #chat-toggle-btn:active { transform: scale(0.96); }
+  #chat-toggle-btn:focus-visible { outline: 2px solid #9B76FF; outline-offset: 3px; border-radius: 50%; }
+
+  .toggle-icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+  }
+
+  .toggle-icon.t-bot  { opacity: 1; transform: rotate(0deg) scale(1); }
+  .toggle-icon.t-close { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+
+  #chat-toggle-btn.is-open .toggle-icon.t-bot   { opacity: 0; transform: rotate(90deg) scale(0.6); }
+  #chat-toggle-btn.is-open .toggle-icon.t-close { opacity: 1; transform: rotate(0deg) scale(1); }
+
+  .chat-unread {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 14px;
+    height: 14px;
+    background: #F28948;
+    border-radius: 50%;
+    border: 2px solid #080A12;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  </style>
+</head>
+
+<body class="grid-pattern">
+
+  <!-- ═══════════════ NAVBAR ═══════════════ -->
+  <nav id="navbar">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between;">
+      <!-- Logo -->
+      <a href="#" class="logo-pill">
+        <img src="brand_assets/logo-ALTARES.jpg" alt="DesarroIA.pe" style="height: 32px; width: auto; display: block;">
+      </a>
+
+      <!-- Links (hide on mobile) -->
+      <div style="display: flex; align-items: center; gap: 36px;" class="hidden md:flex">
+        <a href="#servicios" class="nav-link">Servicios</a>
+        <a href="#nosotros" class="nav-link">Nosotros</a>
+        <a href="#proceso" class="nav-link">Proceso</a>
+        <a href="#resultados" class="nav-link">Resultados</a>
+      </div>
+
+      <!-- CTA -->
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <button class="btn-primary">
+          Agendar llamada
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section style="position: relative; min-height: 100vh; display: flex; align-items: center; padding: 120px 0 80px; overflow: hidden;">
+
+    <!-- Glow orbs -->
+    <div class="orb" style="width: 700px; height: 700px; background: #7B4EFF; opacity: 0.07; top: -200px; left: -200px;"></div>
+    <div class="orb" style="width: 500px; height: 500px; background: #2649A1; opacity: 0.09; bottom: -100px; right: -100px;"></div>
+    <div class="orb" style="width: 300px; height: 300px; background: #F28948; opacity: 0.05; top: 50%; right: 30%;"></div>
+
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 32px; width: 100%;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;" class="hero-grid">
+
+        <!-- LEFT: Text -->
+        <div class="fade-up" style="transition-delay: 0.05s;">
+          <!-- Badge -->
+          <div class="badge-orange" style="margin-bottom: 28px;">
+            <span class="pulse" style="width: 6px; height: 6px; background: var(--orange); border-radius: 50%; display: block;"></span>
+            Agencia IA · Lima, Perú
+          </div>
+
+          <!-- Headline -->
+          <h1 class="display-xl" style="color: var(--cream); margin-bottom: 24px;">
+            POTENCIA<br>
+            TU NEGOCIO<br>
+            CON <span class="grad-purple">INTELI</span><span class="ia-blue">GEN</span><span class="grad-purple">CIA</span><br>
+            <span style="color: var(--cream);">ARTIFICIAL</span>
+          </h1>
+
+          <!-- Sub -->
+          <p style="color: var(--muted); font-size: 1.05rem; line-height: 1.78; max-width: 480px; margin-bottom: 36px;">
+            Transformamos la operatividad de PYMEs peruanas con IA de última generación.
+            Atención al cliente 24/7, procesos automatizados y resultados medibles desde el primer mes.
+          </p>
+
+          <!-- Buttons -->
+          <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 52px;">
+            <button class="btn-primary" style="padding: 15px 36px; font-size: 0.95rem;">
+              Comenzar ahora
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="btn-ghost" style="padding: 14px 36px; font-size: 0.95rem;">
+              Ver demostración
+            </button>
+          </div>
+
+          <!-- Mini stats -->
+          <div style="display: flex; align-items: center; gap: 0;">
+            <div style="text-align: center; padding-right: 32px;">
+              <div class="font-display" style="font-size: 2.4rem; color: var(--cream);">50+</div>
+              <div style="color: var(--muted); font-size: 0.72rem; font-weight: 500; margin-top: 2px; letter-spacing: 0.04em; text-transform: uppercase;">Empresas</div>
+            </div>
+            <div style="width: 1px; height: 44px; background: rgba(255,255,255,0.1); margin-right: 32px;"></div>
+            <div style="text-align: center; padding-right: 32px;">
+              <div class="font-display" style="font-size: 2.4rem; color: var(--cream);">95%</div>
+              <div style="color: var(--muted); font-size: 0.72rem; font-weight: 500; margin-top: 2px; letter-spacing: 0.04em; text-transform: uppercase;">Satisfacción</div>
+            </div>
+            <div style="width: 1px; height: 44px; background: rgba(255,255,255,0.1); margin-right: 32px;"></div>
+            <div style="text-align: center;">
+              <div class="font-display grad-orange" style="font-size: 2.4rem;">3×</div>
+              <div style="color: var(--muted); font-size: 0.72rem; font-weight: 500; margin-top: 2px; letter-spacing: 0.04em; text-transform: uppercase;">Productividad</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Visual mockup -->
+        <div style="position: relative; display: flex; justify-content: center;" class="hidden lg:flex">
+
+          <!-- Main chat card -->
+          <div class="float-a" style="position: relative; z-index: 10; width: 340px;">
+            <div class="card" style="padding: 24px; box-shadow: 0 40px 80px -20px rgba(0,0,0,0.7), 0 0 60px -15px rgba(123,78,255,0.18);">
+              <!-- Header -->
+              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.06);">
+                <div style="width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #7B4EFF, #4A7BEF); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 24px rgba(123,78,255,0.45);">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" fill="#7B4EFF" opacity="0.3"/>
+                    <path d="M8 12h8M12 8v8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <div style="font-size: 0.8rem; font-weight: 600; color: var(--cream);">Agente IA · TechPyme</div>
+                  <div style="display: flex; align-items: center; gap: 5px; margin-top: 2px;">
+                    <span class="pulse" style="width: 6px; height: 6px; background: #22c55e; border-radius: 50%; display: block;"></span>
+                    <span style="font-size: 0.68rem; color: #4ade80;">En línea</span>
+                  </div>
+                </div>
+                <div style="margin-left: auto; font-size: 0.65rem; color: var(--muted);">ahora</div>
+              </div>
+
+              <!-- Messages -->
+              <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
+                <div style="background: rgba(255,255,255,0.04); border-radius: 12px 12px 12px 3px; padding: 10px 14px; font-size: 0.78rem; color: rgba(248,247,245,0.8); max-width: 88%;">
+                  ¡Hola! Soy el asistente de TechPyme. ¿En qué puedo ayudarte hoy? 👋
+                </div>
+                <div style="background: rgba(123,78,255,0.18); border: 1px solid rgba(123,78,255,0.2); border-radius: 12px 12px 3px 12px; padding: 10px 14px; font-size: 0.78rem; color: rgba(248,247,245,0.85); max-width: 88%; align-self: flex-end;">
+                  Quiero información sobre sus planes
+                </div>
+                <div style="background: rgba(255,255,255,0.04); border-radius: 12px 12px 12px 3px; padding: 10px 14px; font-size: 0.78rem; color: rgba(248,247,245,0.8); max-width: 88%;">
+                  Claro, tenemos 3 planes adaptados a PyMEs…
+                  <span style="color: #9B76FF;">⟳</span>
+                </div>
+              </div>
+
+              <!-- Typing -->
+              <div style="display: flex; align-items: center; gap: 4px; padding: 4px 0;">
+                <div style="width: 7px; height: 7px; background: var(--purple-soft); border-radius: 50%; animation: pulse-dot 1.4s ease-in-out infinite; animation-delay: 0s;"></div>
+                <div style="width: 7px; height: 7px; background: var(--purple-soft); border-radius: 50%; animation: pulse-dot 1.4s ease-in-out infinite; animation-delay: 0.22s;"></div>
+                <div style="width: 7px; height: 7px; background: var(--purple-soft); border-radius: 50%; animation: pulse-dot 1.4s ease-in-out infinite; animation-delay: 0.44s;"></div>
+                <span style="font-size: 0.68rem; color: var(--muted); margin-left: 6px;">Escribiendo...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating stat: Response time -->
+          <div class="float-b" style="position: absolute; top: -28px; right: -24px; z-index: 20;">
+            <div class="card" style="padding: 14px 18px; box-shadow: 0 16px 40px -10px rgba(0,0,0,0.5);">
+              <div style="font-size: 0.65rem; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em;">Tiempo de respuesta</div>
+              <div class="font-display" style="font-size: 1.8rem; color: var(--cream);">&lt; 2s</div>
+              <div style="display: flex; align-items: center; gap: 4px; margin-top: 4px;">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="#22c55e"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+                <span style="font-size: 0.65rem; color: #4ade80;">87% más rápido</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating stat: Queries solved -->
+          <div class="float-c" style="position: absolute; bottom: -20px; left: -32px; z-index: 20;">
+            <div class="card" style="padding: 14px 18px; box-shadow: 0 16px 40px -10px rgba(0,0,0,0.5);">
+              <div style="font-size: 0.65rem; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em;">Consultas resueltas</div>
+              <div class="font-display" style="font-size: 1.8rem; color: var(--cream);">12,847</div>
+              <div style="font-size: 0.65rem; color: var(--orange); margin-top: 4px;">↑ Este mes</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SERVICES ═══════════════ -->
+  <section id="servicios" style="padding: 100px 0; position: relative;">
+
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 32px;">
+
+      <!-- Section header -->
+      <div class="fade-up" style="text-align: center; margin-bottom: 64px;">
+        <div class="badge-purple" style="margin-bottom: 20px;">Nuestros servicios</div>
+        <h2 class="display-lg" style="color: var(--cream); margin-bottom: 18px;">
+          SOLUCIONES <span class="grad-purple">IA</span> QUE<br>TRANSFORMAN TU EMPRESA
+        </h2>
+        <p style="color: var(--muted); font-size: 1rem; line-height: 1.75; max-width: 520px; margin: 0 auto;">
+          Implementamos las herramientas de inteligencia artificial más avanzadas, adaptadas específicamente a tu negocio y sector.
+        </p>
+      </div>
+
+      <!-- Grid -->
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+
+        <!-- 1 -->
+        <div class="card fade-up" style="padding: 28px; transition-delay: 0.05s;">
+          <div class="icon-wrap" style="background: rgba(123,78,255,0.12); border: 1px solid rgba(123,78,255,0.25); margin-bottom: 20px; box-shadow: 0 0 28px rgba(123,78,255,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="#9B76FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="9" cy="10" r="1" fill="#9B76FF"/><circle cx="12" cy="10" r="1" fill="#9B76FF"/><circle cx="15" cy="10" r="1" fill="#9B76FF"/>
+            </svg>
+          </div>
+          <h3 class="display-md" style="color: var(--cream); margin-bottom: 12px;">AGENTES IA DE ATENCIÓN</h3>
+          <p style="color: var(--muted); font-size: 0.85rem; line-height: 1.75;">
+            Chatbots con IA que atienden a tus clientes 24/7, resuelven consultas y gestionan ventas automáticamente en múltiples canales.
+          </p>
+          <div style="margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.055); display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.7rem; color: var(--muted); font-weight: 500;">WhatsApp · Web · Instagram</span>
+            <span style="color: var(--purple-soft); font-weight: 700; font-size: 1rem;">→</span>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="card fade-up" style="padding: 28px; transition-delay: 0.1s;">
+          <div class="icon-wrap" style="background: rgba(242,137,72,0.1); border: 1px solid rgba(242,137,72,0.25); margin-bottom: 20px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="3" width="20" height="14" rx="2" stroke="#F28948" stroke-width="1.8"/>
+              <path d="M8 21h8M12 17v4" stroke="#F28948" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M7 8l2 2 4-4" stroke="#F28948" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="display-md" style="color: var(--cream); margin-bottom: 12px;">AUTOMATIZACIÓN DE PROCESOS</h3>
+          <p style="color: var(--muted); font-size: 0.85rem; line-height: 1.75;">
+            Eliminamos las tareas repetitivas. Flujos automatizados que conectan tus sistemas y operan sin intervención humana.
+          </p>
+          <div style="margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.055); display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.7rem; color: var(--muted); font-weight: 500;">CRM · ERP · Email · APIs</span>
+            <span style="color: var(--orange); font-weight: 700; font-size: 1rem;">→</span>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="card fade-up" style="padding: 28px; transition-delay: 0.15s;">
+          <div class="icon-wrap" style="background: rgba(74,123,239,0.12); border: 1px solid rgba(74,123,239,0.25); margin-bottom: 20px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="3" stroke="#4A7BEF" stroke-width="1.8"/>
+              <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M5.64 18.36l2.12-2.12M16.24 7.76l2.12-2.12" stroke="#4A7BEF" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="display-md" style="color: var(--cream); margin-bottom: 12px;">ANÁLISIS INTELIGENTE</h3>
+          <p style="color: var(--muted); font-size: 0.85rem; line-height: 1.75;">
+            Dashboards IA que analizan tus datos en tiempo real y te dan insights accionables para mejores decisiones de negocio.
+          </p>
+          <div style="margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.055); display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.7rem; color: var(--muted); font-weight: 500;">KPIs · Reportes · Predicciones</span>
+            <span style="color: var(--blue-mid); font-weight: 700; font-size: 1rem;">→</span>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="card fade-up" style="padding: 28px; transition-delay: 0.2s;">
+          <div class="icon-wrap" style="background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.22); margin-bottom: 20px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M9 17H7A5 5 0 0 1 7 7h2M15 7h2a5 5 0 1 1 0 10h-2M8 12h8" stroke="#4ade80" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="display-md" style="color: var(--cream); margin-bottom: 12px;">INTEGRACIÓN DE SISTEMAS</h3>
+          <p style="color: var(--muted); font-size: 0.85rem; line-height: 1.75;">
+            Conectamos tus herramientas existentes con IA. Integraciones que hacen que tus sistemas colaboren de forma inteligente.
+          </p>
+          <div style="margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.055); display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.7rem; color: var(--muted); font-weight: 500;">API · Webhooks · n8n · Zapier</span>
+            <span style="color: #4ade80; font-weight: 700; font-size: 1rem;">→</span>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="card fade-up" style="padding: 28px; transition-delay: 0.25s;">
+          <div class="icon-wrap" style="background: rgba(123,78,255,0.1); border: 1px solid rgba(123,78,255,0.22); margin-bottom: 20px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#9B76FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="display-md" style="color: var(--cream); margin-bottom: 12px;">CONSULTORÍA IA</h3>
+          <p style="color: var(--muted); font-size: 0.85rem; line-height: 1.75;">
+            Evaluamos tu negocio e identificamos las oportunidades de IA con mayor impacto. Estrategia personalizada para tu industria.
+          </p>
+          <div style="margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.055); display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.7rem; color: var(--muted); font-weight: 500;">Diagnóstico · Roadmap · ROI</span>
+            <span style="color: var(--purple-soft); font-weight: 700; font-size: 1rem;">→</span>
+          </div>
+        </div>
+
+        <!-- 6: Featured CTA card -->
+        <div class="card-featured fade-up" style="padding: 28px; transition-delay: 0.3s; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="font-display grad-purple" style="font-size: 4rem; margin-bottom: 8px; line-height: 1;">IA</div>
+            <h3 class="display-md" style="color: var(--cream); margin-bottom: 14px;">SOLUCIONES A MEDIDA</h3>
+            <p style="color: var(--muted); font-size: 0.85rem; line-height: 1.75; margin-bottom: 24px;">
+              ¿Tienes un reto único? Desarrollamos soluciones de IA completamente personalizadas para tu caso de uso específico.
+            </p>
+          </div>
+          <button class="btn-primary" style="width: 100%; justify-content: center;">
+            Hablar con un experto
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ ABOUT ═══════════════ -->
+  <section id="nosotros" style="padding: 100px 0; position: relative; overflow: hidden;">
+    <div class="orb" style="width: 600px; height: 600px; background: #7B4EFF; opacity: 0.055; top: 50%; left: 55%; transform: translate(-50%, -50%);"></div>
+
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 32px;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+
+        <!-- Left -->
+        <div class="fade-up">
+          <div class="badge-purple" style="margin-bottom: 24px;">Quiénes somos</div>
+          <h2 class="display-lg" style="color: var(--cream); margin-bottom: 24px;">
+            TALENTO JOVEN,<br>
+            <span class="grad-purple">TECNOLOGÍA</span><br>
+            DEL FUTURO
+          </h2>
+          <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.78; margin-bottom: 18px;">
+            Somos un equipo de talentos jóvenes impulsados por una meta clara: redefinir la operatividad de las pequeñas y medianas empresas peruanas.
+          </p>
+          <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.78; margin-bottom: 36px;">
+            Aprovechamos lo último en Inteligencia Artificial para transformar la atención al cliente, convirtiendo procesos complejos en experiencias ágiles, precisas y automatizadas.
+          </p>
+
+          <!-- Values -->
+          <div style="display: flex; flex-direction: column; gap: 18px;">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+              <div style="width: 20px; height: 20px; border-radius: 50%; background: rgba(123,78,255,0.15); border: 1px solid rgba(123,78,255,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
+                <div style="width: 7px; height: 7px; background: var(--purple-soft); border-radius: 50%;"></div>
+              </div>
+              <div>
+                <div style="font-size: 0.875rem; font-weight: 600; color: var(--cream); margin-bottom: 3px;">Enfocados en resultados</div>
+                <div style="font-size: 0.82rem; color: var(--muted); line-height: 1.6;">Cada solución se mide por su impacto real en tu negocio, no por métricas de vanidad.</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+              <div style="width: 20px; height: 20px; border-radius: 50%; background: rgba(242,137,72,0.15); border: 1px solid rgba(242,137,72,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
+                <div style="width: 7px; height: 7px; background: var(--orange); border-radius: 50%;"></div>
+              </div>
+              <div>
+                <div style="font-size: 0.875rem; font-weight: 600; color: var(--cream); margin-bottom: 3px;">Implementación rápida</div>
+                <div style="font-size: 0.82rem; color: var(--muted); line-height: 1.6;">De la idea al sistema en producción en semanas, no meses.</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+              <div style="width: 20px; height: 20px; border-radius: 50%; background: rgba(74,123,239,0.15); border: 1px solid rgba(74,123,239,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
+                <div style="width: 7px; height: 7px; background: var(--blue-mid); border-radius: 50%;"></div>
+              </div>
+              <div>
+                <div style="font-size: 0.875rem; font-weight: 600; color: var(--cream); margin-bottom: 3px;">Soporte continuo</div>
+                <div style="font-size: 0.82rem; color: var(--muted); line-height: 1.6;">Acompañamiento permanente para optimizar y escalar tu solución.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Stats -->
+        <div class="fade-up" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; transition-delay: 0.2s;">
+          <div class="card" style="padding: 28px; text-align: center;">
+            <div class="font-display grad-purple" style="font-size: 3.5rem; margin-bottom: 8px;">50+</div>
+            <div style="font-size: 0.85rem; font-weight: 600; color: var(--cream); margin-bottom: 4px;">Proyectos IA</div>
+            <div style="font-size: 0.75rem; color: var(--muted);">implementados exitosamente</div>
+          </div>
+          <div class="card" style="padding: 28px; text-align: center; background: rgba(123,78,255,0.07); border-color: rgba(123,78,255,0.18);">
+            <div class="font-display" style="font-size: 3.5rem; color: var(--cream); margin-bottom: 8px;">24/7</div>
+            <div style="font-size: 0.85rem; font-weight: 600; color: var(--cream); margin-bottom: 4px;">Disponibilidad</div>
+            <div style="font-size: 0.75rem; color: var(--muted);">sistemas siempre activos</div>
+          </div>
+          <div class="card" style="padding: 28px; text-align: center; background: rgba(242,137,72,0.06); border-color: rgba(242,137,72,0.18);">
+            <div class="font-display grad-orange" style="font-size: 3.5rem; margin-bottom: 8px;">3×</div>
+            <div style="font-size: 0.85rem; font-weight: 600; color: var(--cream); margin-bottom: 4px;">Productividad</div>
+            <div style="font-size: 0.75rem; color: var(--muted);">promedio en clientes</div>
+          </div>
+          <div class="card" style="padding: 28px; text-align: center;">
+            <div class="font-display grad-purple" style="font-size: 3.5rem; margin-bottom: 8px;">95%</div>
+            <div style="font-size: 0.85rem; font-weight: 600; color: var(--cream); margin-bottom: 4px;">Satisfacción</div>
+            <div style="font-size: 0.75rem; color: var(--muted);">de nuestros clientes</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+  <section id="proceso" style="padding: 100px 0; position: relative;">
+
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 32px;">
+      <div class="fade-up" style="text-align: center; margin-bottom: 72px;">
+        <div class="badge-orange" style="margin-bottom: 20px;">Proceso</div>
+        <h2 class="display-lg" style="color: var(--cream); margin-bottom: 16px;">
+          CÓMO <span class="grad-purple">FUNCIONA</span>
+        </h2>
+        <p style="color: var(--muted); font-size: 1rem; line-height: 1.75; max-width: 480px; margin: 0 auto;">
+          De la primera conversación al sistema en producción, te guiamos en cada paso del camino.
+        </p>
+      </div>
+
+      <!-- Steps -->
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative;">
+        <!-- Connector -->
+        <div style="position: absolute; top: 23px; left: calc(12.5% + 16px); right: calc(12.5% + 16px); height: 1px; background: linear-gradient(to right, #7B4EFF, #4A7BEF, rgba(74,123,239,0.2)); z-index: 0;" class="hidden lg:block"></div>
+
+        <!-- Step 1 -->
+        <div class="fade-up" style="text-align: center; position: relative; z-index: 1; transition-delay: 0.05s;">
+          <div class="step-num" style="background: linear-gradient(135deg, #7B4EFF, #4A7BEF); color: white; box-shadow: 0 0 32px rgba(123,78,255,0.45);">1</div>
+          <h3 class="display-md" style="color: var(--cream); margin-bottom: 10px;">DIAGNÓSTICO</h3>
+          <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.72;">Analizamos tus procesos e identificamos dónde la IA genera mayor impacto y ROI.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="fade-up" style="text-align: center; position: relative; z-index: 1; transition-delay: 0.15s;">
+          <div class="step-num" style="background: rgba(123,78,255,0.14); border: 1px solid rgba(123,78,255,0.35); color: var(--purple-soft);">2</div>
+          <h3 class="display-md" style="color: var(--cream); margin-bottom: 10px;">DISEÑO</h3>
+          <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.72;">Creamos la arquitectura de la solución adaptada exactamente a tus necesidades.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="fade-up" style="text-align: center; position: relative; z-index: 1; transition-delay: 0.25s;">
+          <div class="step-num" style="background: rgba(74,123,239,0.14); border: 1px solid rgba(74,123,239,0.35); color: var(--blue-mid);">3</div>
+          <h3 class="display-md" style="color: var(--cream); margin-bottom: 10px;">IMPLEMENTACIÓN</h3>
+          <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.72;">Desarrollamos e integramos la solución en tiempo récord con pruebas exhaustivas.</p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="fade-up" style="text-align: center; position: relative; z-index: 1; transition-delay: 0.35s;">
+          <div class="step-num" style="background: rgba(242,137,72,0.12); border: 1px solid rgba(242,137,72,0.32); color: var(--orange);">4</div>
+          <h3 class="display-md" style="color: var(--cream); margin-bottom: 10px;">OPTIMIZACIÓN</h3>
+          <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.72;">Monitoreamos y mejoramos continuamente para maximizar tus resultados.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ RESULTS / TESTIMONIALS ═══════════════ -->
+  <section id="resultados" style="padding: 100px 0; position: relative; overflow: hidden;">
+    <div class="orb" style="width: 500px; height: 500px; background: #F28948; opacity: 0.04; bottom: -100px; left: -100px;"></div>
+
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 32px;">
+      <div class="fade-up" style="text-align: center; margin-bottom: 64px;">
+        <div class="badge-purple" style="margin-bottom: 20px;">Resultados reales</div>
+        <h2 class="display-lg" style="color: var(--cream);">
+          LO QUE DICEN<br><span class="grad-purple">NUESTROS CLIENTES</span>
+        </h2>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+
+        <!-- T1 -->
+        <div class="card fade-up" style="padding: 28px; transition-delay: 0.05s;">
+          <div class="quote-mark">"</div>
+          <p style="color: rgba(248,247,245,0.8); font-size: 0.88rem; line-height: 1.78; margin-bottom: 24px; margin-top: 8px;">
+            "DesarroIA implementó nuestro agente de WhatsApp en 2 semanas. Ahora resolvemos el 80% de consultas sin intervención humana. El equipo de soporte ha podido dedicarse a casos complejos."
+          </p>
+          <div style="display: flex; align-items: center; gap: 12px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.055);">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #7B4EFF, #4A7BEF); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue'; font-size: 1.1rem; color: white; flex-shrink: 0;">CM</div>
+            <div>
+              <div style="font-size: 0.82rem; font-weight: 600; color: var(--cream);">Carlos M.</div>
+              <div style="font-size: 0.72rem; color: var(--muted);">CEO · TechRetail Perú</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- T2 -->
+        <div class="card fade-up" style="padding: 28px; transition-delay: 0.15s; border-color: rgba(123,78,255,0.18); background: rgba(123,78,255,0.04);">
+          <div class="quote-mark">"</div>
+          <p style="color: rgba(248,247,245,0.8); font-size: 0.88rem; line-height: 1.78; margin-bottom: 24px; margin-top: 8px;">
+            "Automatizaron nuestro proceso de onboarding de clientes. Lo que antes tomaba 3 días ahora se hace en horas. El ROI fue evidente desde el primer mes de implementación."
+          </p>
+          <div style="display: flex; align-items: center; gap: 12px; padding-top: 18px; border-top: 1px solid rgba(123,78,255,0.12);">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #F28948, #FF6B3D); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue'; font-size: 1.1rem; color: white; flex-shrink: 0;">AL</div>
+            <div>
+              <div style="font-size: 0.82rem; font-weight: 600; color: var(--cream);">Ana L.</div>
+              <div style="font-size: 0.72rem; color: var(--muted);">Gerente · Fintech Lima</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- T3 -->
+        <div class="card fade-up" style="padding: 28px; transition-delay: 0.25s;">
+          <div class="quote-mark">"</div>
+          <p style="color: rgba(248,247,245,0.8); font-size: 0.88rem; line-height: 1.78; margin-bottom: 24px; margin-top: 8px;">
+            "El dashboard de análisis IA que crearon nos da insights que antes simplemente no teníamos. Tomamos mejores decisiones de inventario y reducimos pérdidas en 40%."
+          </p>
+          <div style="display: flex; align-items: center; gap: 12px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.055);">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #2649A1, #4A7BEF); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue'; font-size: 1.1rem; color: white; flex-shrink: 0;">RV</div>
+            <div>
+              <div style="font-size: 0.82rem; font-weight: 600; color: var(--cream);">Roberto V.</div>
+              <div style="font-size: 0.72rem; color: var(--muted);">Director · Distribuidora Norte</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CTA ═══════════════ -->
+  <section style="padding: 100px 0 120px; position: relative; overflow: hidden;">
+    <div class="orb" style="width: 700px; height: 700px; background: #7B4EFF; opacity: 0.07; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+
+    <div style="max-width: 860px; margin: 0 auto; padding: 0 32px; text-align: center;">
+      <div class="card-featured fade-up" style="padding: 72px 60px; position: relative; overflow: hidden; border-radius: 28px;">
+
+        <!-- Decorative corner glows -->
+        <div style="position: absolute; top: 0; left: 0; width: 120px; height: 120px; background: radial-gradient(circle at top left, rgba(123,78,255,0.25), transparent); pointer-events: none;"></div>
+        <div style="position: absolute; bottom: 0; right: 0; width: 120px; height: 120px; background: radial-gradient(circle at bottom right, rgba(242,137,72,0.2), transparent); pointer-events: none;"></div>
+
+        <div class="badge-orange" style="margin-bottom: 28px;">
+          <span class="pulse" style="width: 6px; height: 6px; background: var(--orange); border-radius: 50%; display: block;"></span>
+          Plazas limitadas este mes
+        </div>
+
+        <h2 class="display-lg" style="color: var(--cream); margin-bottom: 20px;">
+          ¿LISTO PARA<br>
+          <span class="grad-purple">AUTOMATIZAR</span><br>
+          TU NEGOCIO?
+        </h2>
+
+        <p style="color: var(--muted); font-size: 1rem; line-height: 1.78; max-width: 480px; margin: 0 auto 40px;">
+          Agenda una llamada gratuita de 30 minutos con nuestro equipo. Te mostraremos exactamente cómo la IA puede transformar tu empresa.
+        </p>
+
+        <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+          <button class="btn-primary" style="padding: 16px 42px; font-size: 1rem;">
+            Agendar llamada gratuita
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="btn-ghost" style="padding: 15px 42px; font-size: 1rem;">Ver demostración</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer style="border-top: 1px solid rgba(255,255,255,0.055); padding: 40px 0;">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+      <a href="#" class="logo-pill">
+        <img src="brand_assets/logo-ALTARES.jpg" alt="DesarroIA.pe" style="height: 28px; width: auto; display: block;">
+      </a>
+      <div style="display: flex; align-items: center; gap: 28px; flex-wrap: wrap;">
+        <a href="#servicios" style="color: var(--muted); font-size: 0.82rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--muted)'">Servicios</a>
+        <a href="#nosotros" style="color: var(--muted); font-size: 0.82rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--muted)'">Nosotros</a>
+        <a href="#proceso" style="color: var(--muted); font-size: 0.82rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--muted)'">Proceso</a>
+        <a href="#resultados" style="color: var(--muted); font-size: 0.82rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--muted)'">Resultados</a>
+      </div>
+      <div style="color: var(--muted); font-size: 0.75rem;">© 2025 DesarroIA.pe · Enfocados en soluciones del mañana</div>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer — fade up animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Trigger elements already in/near viewport immediately and on scroll
+    function triggerVisible() {
+      document.querySelectorAll('.fade-up:not(.visible)').forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight + 100) el.classList.add('visible');
+      });
+    }
+
+    triggerVisible();
+    setTimeout(triggerVisible, 200);
+    setTimeout(triggerVisible, 600);
+    window.addEventListener('scroll', triggerVisible, { passive: true });
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    const onScroll = () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Mobile hero grid fix
+    const heroGrid = document.querySelector('.hero-grid');
+    if (heroGrid && window.innerWidth < 1024) {
+      heroGrid.style.gridTemplateColumns = '1fr';
+    }
+
+    // Services grid mobile fix
+    const servGrid = document.querySelector('[style*="repeat(3, 1fr)"]');
+    function checkMobile() {
+      if (window.innerWidth < 768) {
+        if (servGrid) servGrid.style.gridTemplateColumns = '1fr';
+        if (heroGrid) heroGrid.style.gridTemplateColumns = '1fr';
+      } else if (window.innerWidth < 1024) {
+        if (servGrid) servGrid.style.gridTemplateColumns = 'repeat(2, 1fr)';
+      }
+    }
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+  </script>
+
+  <!-- ═══════════════ EXPANDABLE CHAT WIDGET ═══════════════ -->
+  <div id="chat-widget" aria-label="Chat de soporte">
+
+    <!-- Chat Window -->
+    <div id="chat-window" class="chat-closed" role="dialog" aria-label="Chat con IA">
+
+      <!-- Header -->
+      <div class="chat-header">
+        <div class="chat-header-avatar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" fill="white"/>
+          </svg>
+        </div>
+        <div class="chat-header-info" style="flex: 1;">
+          <h2>Asistente DesarroIA ✨</h2>
+          <div class="chat-status">
+            <span class="chat-status-dot"></span>
+            <span class="chat-status-text">En línea · responde en segundos</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div id="chat-body" class="chat-body"></div>
+
+      <!-- Footer -->
+      <div class="chat-footer">
+        <form id="chat-form" autocomplete="off">
+          <textarea
+            id="chat-input"
+            placeholder="Escribe tu consulta..."
+            rows="1"
+            aria-label="Mensaje"
+          ></textarea>
+          <div class="chat-form-actions">
+            <button type="submit" id="chat-send" aria-label="Enviar mensaje">
+              Enviar
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Toggle Button -->
+    <button id="chat-toggle-btn" aria-label="Abrir chat" aria-expanded="false">
+      <!-- Bot icon -->
+      <div class="toggle-icon t-bot">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="8" width="18" height="12" rx="3" stroke="white" stroke-width="1.8"/>
+          <path d="M9 12h.01M15 12h.01M9 15h6" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M8 8V6a4 4 0 0 1 8 0v2" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="12" cy="3" r="1" fill="white"/>
+        </svg>
+      </div>
+      <!-- Close icon -->
+      <div class="toggle-icon t-close">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6l12 12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <!-- Unread dot -->
+      <span class="chat-unread" id="chat-unread" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <script>
+    (function () {
+      const win = document.getElementById('chat-window');
+      const toggleBtn = document.getElementById('chat-toggle-btn');
+      const body = document.getElementById('chat-body');
+      const form = document.getElementById('chat-form');
+      const input = document.getElementById('chat-input');
+      const unreadDot = document.getElementById('chat-unread');
+
+      let isOpen = false;
+
+      // Initial greeting shown on first open
+      const greeting = {
+        role: 'ai',
+        text: '¡Hola! Soy el asistente virtual de DesarroIA.pe 👋\n¿En qué puedo ayudarte hoy? Puedo contarte sobre nuestros servicios, precios o cómo empezar.',
+      };
+
+      const aiReplies = [
+        '¡Gracias por tu mensaje! Para darte la atención más personalizada, te recomendamos agendar una llamada gratuita de 30 minutos con nuestro equipo. ¿Te interesa? 🚀',
+        'Nuestros agentes de IA pueden atender a tus clientes 24/7 en WhatsApp, web e Instagram. La implementación típica toma 2 a 3 semanas. ¿Te gustaría saber más?',
+        'La automatización de procesos es una de nuestras especialidades. Ayudamos a PYMEs a eliminar tareas repetitivas y reducir costos operativos hasta en un 60%. ¿Qué procesos te gustaría optimizar?',
+        'El 95% de nuestros clientes reporta mejoras medibles desde el primer mes. Trabajamos con empresas de retail, fintech, salud y más. ¿Cuál es tu industria?',
+        'Nuestros planes se adaptan al tamaño y necesidades de tu empresa. Para darte un presupuesto exacto, lo ideal es una llamada de diagnóstico gratuita. ¿Agendamos?',
+      ];
+
+      let replyIndex = 0;
+      let msgCount = 0;
+      let greeted = false;
+
+      function createRow(role, text) {
+        msgCount++;
+        const row = document.createElement('div');
+        row.className = `msg-row msg-${role}`;
+        row.dataset.id = msgCount;
+
+        const av = document.createElement('div');
+        av.className = `msg-avatar ${role === 'ai' ? 'ai-av' : 'user-av'}`;
+        av.textContent = role === 'ai' ? 'IA' : 'TÚ';
+
+        const bubble = document.createElement('div');
+        bubble.className = 'msg-bubble';
+        // Preserve newlines
+        bubble.innerHTML = text.replace(/\n/g, '<br>');
+
+        row.appendChild(av);
+        row.appendChild(bubble);
+        return row;
+      }
+
+      function createLoadingRow() {
+        const row = document.createElement('div');
+        row.className = 'msg-row msg-ai';
+        row.id = 'chat-loading-row';
+
+        const av = document.createElement('div');
+        av.className = 'msg-avatar ai-av';
+        av.textContent = 'IA';
+
+        const bubble = document.createElement('div');
+        bubble.className = 'msg-bubble';
+        bubble.innerHTML = '<div class="msg-loading"><span></span><span></span><span></span></div>';
+
+        row.appendChild(av);
+        row.appendChild(bubble);
+        return row;
+      }
+
+      function scrollToBottom() {
+        body.scrollTop = body.scrollHeight;
+      }
+
+      function appendMsg(role, text) {
+        const row = createRow(role, text);
+        body.appendChild(row);
+        scrollToBottom();
+      }
+
+      function sendAiReply() {
+        // Show loading
+        const loadRow = createLoadingRow();
+        body.appendChild(loadRow);
+        scrollToBottom();
+
+        const delay = 900 + Math.random() * 600;
+        setTimeout(() => {
+          loadRow.remove();
+          const reply = aiReplies[replyIndex % aiReplies.length];
+          replyIndex++;
+          appendMsg('ai', reply);
+        }, delay);
+      }
+
+      function openChat() {
+        isOpen = true;
+        win.classList.remove('chat-closed');
+        win.classList.add('chat-open');
+        toggleBtn.classList.add('is-open');
+        toggleBtn.setAttribute('aria-expanded', 'true');
+        toggleBtn.setAttribute('aria-label', 'Cerrar chat');
+
+        // Hide unread dot
+        unreadDot.style.display = 'none';
+
+        // Show greeting on first open
+        if (!greeted) {
+          greeted = true;
+          setTimeout(() => {
+            appendMsg('ai', greeting.text);
+          }, 250);
+        }
+
+        setTimeout(() => input.focus(), 300);
+      }
+
+      function closeChat() {
+        isOpen = false;
+        win.classList.remove('chat-open');
+        win.classList.add('chat-closed');
+        toggleBtn.classList.remove('is-open');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        toggleBtn.setAttribute('aria-label', 'Abrir chat');
+      }
+
+      toggleBtn.addEventListener('click', () => {
+        if (isOpen) closeChat(); else openChat();
+      });
+
+      // Close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isOpen) closeChat();
+      });
+
+      // Submit message
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const text = input.value.trim();
+        if (!text) return;
+
+        appendMsg('user', text);
+        input.value = '';
+        input.style.height = 'auto';
+        sendAiReply();
+      });
+
+      // Enter to send, Shift+Enter for newline
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          form.dispatchEvent(new Event('submit'));
+        }
+      });
+
+      // Auto-resize textarea
+      input.addEventListener('input', () => {
+        input.style.height = 'auto';
+        input.style.height = Math.min(input.scrollHeight, 80) + 'px';
+      });
+
+      // Show unread dot after 3s if chat not opened
+      setTimeout(() => {
+        if (!isOpen && !greeted) {
+          unreadDot.style.display = 'block';
+        }
+      }, 3000);
+    })();
+  </script>
+
+</body>
+</html>
