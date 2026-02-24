@@ -1196,7 +1196,7 @@
         </h2>
 
         <p style="color: var(--muted); font-size: 1rem; line-height: 1.78; max-width: 480px; margin: 0 auto 40px;">
-          Agenda una llamada gratuita de 30 minutos con nuestro equipo. Te mostraremos exactamente cómo la IA puede transformar tu empresa.
+          Agenda una llamada gratuita de 15 minutos con nuestro equipo. Te mostraremos exactamente cómo la IA puede transformar tu empresa.
         </p>
 
         <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
@@ -1287,7 +1287,7 @@
           <div style="height: 1px; background: rgba(255,255,255,0.07); margin: 36px 0;"></div>
 
           <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.7;">
-            Respuesta en menos de <span style="color: var(--cream);">24 horas</span>. Agenda también una llamada gratuita de 30 min con nuestro equipo.
+            Respuesta en menos de <span style="color: var(--cream);">24 horas</span>. Agenda también una llamada gratuita de 15 min con nuestro equipo.
           </p>
         </div>
 
@@ -1547,15 +1547,8 @@
         text: '¡Hola! Soy el asistente virtual de DesarroIA.pe 👋\n¿En qué puedo ayudarte hoy? Puedo contarte sobre nuestros servicios, precios o cómo empezar.',
       };
 
-      const aiReplies = [
-        '¡Gracias por tu mensaje! Para darte la atención más personalizada, te recomendamos agendar una llamada gratuita de 30 minutos con nuestro equipo. ¿Te interesa? 🚀',
-        'Nuestros agentes de IA pueden atender a tus clientes 24/7 en WhatsApp, web e Instagram. La implementación típica toma 2 a 3 semanas. ¿Te gustaría saber más?',
-        'La automatización de procesos es una de nuestras especialidades. Ayudamos a PYMEs a eliminar tareas repetitivas y reducir costos operativos hasta en un 60%. ¿Qué procesos te gustaría optimizar?',
-        'El 95% de nuestros clientes reporta mejoras medibles desde el primer mes. Trabajamos con empresas de retail, fintech, salud y más. ¿Cuál es tu industria?',
-        'Nuestros planes se adaptan al tamaño y necesidades de tu empresa. Para darte un presupuesto exacto, lo ideal es una llamada de diagnóstico gratuita. ¿Agendamos?',
-      ];
+      const CHAT_WEBHOOK = 'https://n8n.srv1246097.hstgr.cloud/webhook/351231d7-cb6d-46e6-83ab-c73752a8375a';
 
-      let replyIndex = 0;
       let msgCount = 0;
       let greeted = false;
 
@@ -1607,19 +1600,38 @@
         scrollToBottom();
       }
 
-      function sendAiReply() {
-        // Show loading
+      async function sendAiReply(userMessage) {
+        // Show loading dots
         const loadRow = createLoadingRow();
         body.appendChild(loadRow);
         scrollToBottom();
 
-        const delay = 900 + Math.random() * 600;
-        setTimeout(() => {
-          loadRow.remove();
-          const reply = aiReplies[replyIndex % aiReplies.length];
-          replyIndex++;
-          appendMsg('ai', reply);
-        }, delay);
+        let reply = 'Lo siento, no pude conectarme en este momento. Por favor escríbenos a desarroiape@gmail.com o intenta de nuevo.';
+
+        try {
+          const res = await fetch(CHAT_WEBHOOK, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: userMessage }),
+          });
+
+          if (res.ok) {
+            const contentType = res.headers.get('content-type') || '';
+            if (contentType.includes('application/json')) {
+              const json = await res.json();
+              // Accept common response shapes
+              reply = json.reply || json.message || json.text || json.output || JSON.stringify(json);
+            } else {
+              const text = await res.text();
+              if (text.trim()) reply = text.trim();
+            }
+          }
+        } catch (_) {
+          // Network error — fallback message already set
+        }
+
+        loadRow.remove();
+        appendMsg('ai', reply);
       }
 
       function openChat() {
@@ -1671,7 +1683,7 @@
         appendMsg('user', text);
         input.value = '';
         input.style.height = 'auto';
-        sendAiReply();
+        sendAiReply(text);
       });
 
       // Enter to send, Shift+Enter for newline
