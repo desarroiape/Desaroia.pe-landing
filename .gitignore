@@ -1,1 +1,5 @@
 node_modules/
+
+# Source recordings (converted into media/*.mp4)
+*.mov
+.DS_Store

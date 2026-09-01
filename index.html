@@ -685,6 +685,165 @@
     border: 2px solid #080A12;
     animation: pulse-dot 2s ease-in-out infinite;
   }
+
+  /* ═══ WORK / SERVICE DEMOS ═══ */
+  .work-row {
+    display: grid;
+    grid-template-columns: minmax(0, 4.6fr) minmax(0, 7fr);
+    gap: 56px;
+    align-items: center;
+    margin-bottom: 96px;
+  }
+  .work-row:last-of-type { margin-bottom: 0; }
+  .work-row.is-flipped {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4.6fr);
+  }
+  .work-row.is-flipped .work-copy { order: 2; }
+  .work-row.is-flipped .work-frame { order: 1; }
+
+  .work-sector {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .work-sector::before {
+    content: "";
+    width: 22px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.5;
+  }
+  .work-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .work-tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: rgba(248, 247, 245, 0.72);
+    padding: 6px 13px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.022);
+  }
+
+  /* Browser-chrome frame around each demo */
+  .work-frame {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #0B0E1A;
+    border: 1px solid rgba(255, 255, 255, 0.085);
+    box-shadow:
+      0 40px 90px -30px rgba(0, 0, 0, 0.85),
+      0 0 70px -30px rgba(123, 78, 255, 0.22);
+    transition:
+      transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1),
+      border-color 0.3s ease;
+  }
+  .work-frame:hover {
+    transform: translateY(-4px);
+    border-color: rgba(123, 78, 255, 0.3);
+  }
+  .work-bar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 11px 15px;
+    background: rgba(255, 255, 255, 0.032);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .work-dot { width: 9px; height: 9px; border-radius: 50%; display: block; }
+  .work-url {
+    margin-left: 10px;
+    font-size: 0.66rem;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .work-frame video {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #0B0E1A;
+  }
+
+  /* Play affordance — shown until the clip is running */
+  .work-play {
+    position: absolute;
+    inset: 0;
+    top: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background: rgba(8, 10, 18, 0.42);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .work-frame.is-paused .work-play { opacity: 1; }
+  .work-play span {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(123, 78, 255, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 34px -8px rgba(123, 78, 255, 0.7);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .work-play:hover span { transform: scale(1.08); }
+  .work-play:focus-visible { outline: 2px solid var(--purple-soft); outline-offset: -4px; }
+
+  /* Secondary services */
+  .more-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .more-item {
+    padding: 22px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.02);
+    transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .more-item:hover {
+    transform: translateY(-4px);
+    border-color: rgba(123, 78, 255, 0.26);
+  }
+
+  @media (max-width: 900px) {
+    .work-row,
+    .work-row.is-flipped {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      margin-bottom: 64px;
+    }
+    .work-row.is-flipped .work-copy,
+    .work-row.is-flipped .work-frame { order: initial; }
+    .more-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .more-grid { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .work-frame, .work-frame:hover, .more-item, .more-item:hover,
+    .work-play span, .work-play:hover span { transition: none; transform: none; }
+  }
+
   </style>
   <meta name="facebook-domain-verification" content="d44l9bcvah4yuda23ldjoz69ymkb58" />
 </head>
@@ -746,8 +905,8 @@
 
           <!-- Sub -->
           <p style="color: var(--muted); font-size: 1.05rem; line-height: 1.78; max-width: 480px; margin-bottom: 36px;">
-            Transformamos la operatividad de PYMEs de latinoamérica con IA de última generación.
-            Atención al cliente 24/7, procesos automatizados y resultados medibles desde el primer mes.
+            Construimos el software que le falta a tu operación: páginas web que venden, cotizaciones
+            automáticas y paneles con tus números al día. Resultados medibles desde el primer mes.
           </p>
 
           <!-- Buttons -->
@@ -756,9 +915,9 @@
               Comenzar ahora
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
-            <button class="btn-ghost" style="padding: 14px 36px; font-size: 0.95rem;">
-              Ver demostración
-            </button>
+            <a href="#servicios" class="btn-ghost" style="padding: 14px 36px; font-size: 0.95rem; text-decoration: none;">
+              Ver demostraciones
+            </a>
           </div>
 
           <!-- Mini stats -->
@@ -783,73 +942,27 @@
         <!-- RIGHT: Visual mockup -->
         <div style="position: relative; display: flex; justify-content: center;" class="hidden lg:flex">
 
-          <!-- Main chat card -->
-          <div class="float-a" style="position: relative; z-index: 10; width: 340px;">
-            <div class="card" style="padding: 24px; box-shadow: 0 40px 80px -20px rgba(0,0,0,0.7), 0 0 60px -15px rgba(123,78,255,0.18);">
-              <!-- Header -->
-              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.06);">
-                <div style="width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #7B4EFF, #4A7BEF); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 24px rgba(123,78,255,0.45);">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" fill="#7B4EFF" opacity="0.3"/>
-                    <path d="M8 12h8M12 8v8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                </div>
-                <div>
-                  <div style="font-size: 0.8rem; font-weight: 600; color: var(--cream);">Agente IA · TechPyme</div>
-                  <div style="display: flex; align-items: center; gap: 5px; margin-top: 2px;">
-                    <span class="pulse" style="width: 6px; height: 6px; background: #22c55e; border-radius: 50%; display: block;"></span>
-                    <span style="font-size: 0.68rem; color: #4ade80;">En línea</span>
-                  </div>
-                </div>
-                <div style="margin-left: auto; font-size: 0.65rem; color: var(--muted);">ahora</div>
+          <!-- Live product window -->
+          <div class="float-a" style="position: relative; z-index: 10; width: 100%; max-width: 560px;">
+            <div class="work-frame is-paused" style="border-radius: 18px;">
+              <div class="work-bar">
+                <span class="work-dot" style="background: #F28948;"></span>
+                <span class="work-dot" style="background: rgba(255,255,255,0.18);"></span>
+                <span class="work-dot" style="background: rgba(255,255,255,0.18);"></span>
+                <span class="work-url">panel · reportes de ventas</span>
               </div>
-
-              <!-- Messages -->
-              <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
-                <div style="background: rgba(255,255,255,0.04); border-radius: 12px 12px 12px 3px; padding: 10px 14px; font-size: 0.78rem; color: rgba(248,247,245,0.8); max-width: 88%;">
-                  ¡Hola! Soy el asistente de TechPyme. ¿En qué puedo ayudarte hoy? 👋
-                </div>
-                <div style="background: rgba(123,78,255,0.18); border: 1px solid rgba(123,78,255,0.2); border-radius: 12px 12px 3px 12px; padding: 10px 14px; font-size: 0.78rem; color: rgba(248,247,245,0.85); max-width: 88%; align-self: flex-end;">
-                  Quiero información sobre sus planes
-                </div>
-                <div style="background: rgba(255,255,255,0.04); border-radius: 12px 12px 12px 3px; padding: 10px 14px; font-size: 0.78rem; color: rgba(248,247,245,0.8); max-width: 88%;">
-                  Claro, tenemos 3 planes adaptados a PyMEs…
-                  <span style="color: #9B76FF;">⟳</span>
-                </div>
-              </div>
-
-              <!-- Typing -->
-              <div style="display: flex; align-items: center; gap: 4px; padding: 4px 0;">
-                <div style="width: 7px; height: 7px; background: var(--purple-soft); border-radius: 50%; animation: pulse-dot 1.4s ease-in-out infinite; animation-delay: 0s;"></div>
-                <div style="width: 7px; height: 7px; background: var(--purple-soft); border-radius: 50%; animation: pulse-dot 1.4s ease-in-out infinite; animation-delay: 0.22s;"></div>
-                <div style="width: 7px; height: 7px; background: var(--purple-soft); border-radius: 50%; animation: pulse-dot 1.4s ease-in-out infinite; animation-delay: 0.44s;"></div>
-                <span style="font-size: 0.68rem; color: var(--muted); margin-left: 6px;">Escribiendo...</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Floating stat: Response time -->
-          <div class="float-b" style="position: absolute; top: -28px; right: -24px; z-index: 20;">
-            <div class="card" style="padding: 14px 18px; box-shadow: 0 16px 40px -10px rgba(0,0,0,0.5);">
-              <div style="font-size: 0.65rem; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em;">Tiempo de respuesta</div>
-              <div class="font-display" style="font-size: 1.8rem; color: var(--cream);">&lt; 2s</div>
-              <div style="display: flex; align-items: center; gap: 4px; margin-top: 4px;">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="#22c55e"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
-                <span style="font-size: 0.65rem; color: #4ade80;">87% más rápido</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Floating stat: Queries solved -->
-          <div class="float-c" style="position: absolute; bottom: -20px; left: -32px; z-index: 20;">
-            <div class="card" style="padding: 14px 18px; box-shadow: 0 16px 40px -10px rgba(0,0,0,0.5);">
-              <div style="font-size: 0.65rem; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em;">Consultas resueltas</div>
-              <div class="font-display" style="font-size: 1.8rem; color: var(--cream);">12,847</div>
-              <div style="font-size: 0.65rem; color: var(--orange); margin-top: 4px;">↑ Este mes</div>
+              <video muted loop playsinline preload="none" poster="media/videodashboard-poster.jpg"
+                     aria-label="Panel de reportes de ventas en funcionamiento">
+                <source src="media/videodashboard.mp4" type="video/mp4">
+              </video>
+              <button class="work-play" type="button" aria-label="Reproducir el panel de reportes">
+                <span><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+              </button>
             </div>
           </div>
 
         </div>
+
       </div>
     </div>
   </section>
@@ -860,123 +973,152 @@
     <div style="max-width: 1280px; margin: 0 auto; padding: 0 32px;">
 
       <!-- Section header -->
-      <div class="fade-up" style="text-align: center; margin-bottom: 64px;">
+      <div class="fade-up" style="text-align: center; margin-bottom: 72px;">
         <div class="badge-purple" style="margin-bottom: 20px;">Nuestros servicios</div>
         <h2 class="display-lg" style="color: var(--cream); margin-bottom: 18px;">
-          SOLUCIONES <span class="grad-purple">IA</span> QUE<br>TRANSFORMAN TU EMPRESA
+          SOFTWARE <span class="grad-purple">HECHO</span><br>PARA TU OPERACIÓN
         </h2>
-        <p style="color: var(--muted); font-size: 1rem; line-height: 1.75; max-width: 520px; margin: 0 auto;">
-          Implementamos las herramientas de inteligencia artificial más avanzadas, adaptadas específicamente a tu negocio y sector.
+        <p style="color: var(--muted); font-size: 1rem; line-height: 1.75; max-width: 540px; margin: 0 auto;">
+          Tres de los sistemas que ya están funcionando con nuestros clientes. Cada uno grabado en uso real, no en maqueta.
         </p>
       </div>
 
-      <!-- Grid -->
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
-
-        <!-- 1 -->
-        <div class="card fade-up" style="padding: 28px; transition-delay: 0.05s;">
-          <div class="icon-wrap" style="background: rgba(123,78,255,0.12); border: 1px solid rgba(123,78,255,0.25); margin-bottom: 20px; box-shadow: 0 0 28px rgba(123,78,255,0.12);">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="#9B76FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="9" cy="10" r="1" fill="#9B76FF"/><circle cx="12" cy="10" r="1" fill="#9B76FF"/><circle cx="15" cy="10" r="1" fill="#9B76FF"/>
-            </svg>
-          </div>
-          <h3 class="display-md" style="color: var(--cream); margin-bottom: 12px;">AGENTES IA DE ATENCIÓN</h3>
-          <p style="color: var(--muted); font-size: 0.85rem; line-height: 1.75;">
-            Chatbots con IA que atienden a tus clientes 24/7, resuelven consultas y gestionan ventas automáticamente en múltiples canales.
+      <!-- ── Demo 1: Web ── -->
+      <div class="work-row fade-up">
+        <div class="work-copy">
+          <div class="work-sector">Barbería · Lima</div>
+          <h3 class="display-md" style="color: var(--cream); margin-bottom: 14px;">PÁGINAS WEB QUE AGENDAN SOLAS</h3>
+          <p style="color: var(--muted); font-size: 0.92rem; line-height: 1.78;">
+            Un sitio que no solo se ve bien: el cliente elige servicio, lugar y hora, y la cita entra confirmada. Sin llamadas ni idas y vueltas para cuadrar horarios.
           </p>
-          <div style="margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.055); display: flex; align-items: center; justify-content: space-between;">
-            <span style="font-size: 0.7rem; color: var(--muted); font-weight: 500;">WhatsApp · Web · Instagram</span>
-            <span style="color: var(--purple-soft); font-weight: 700; font-size: 1rem;">→</span>
+          <div class="work-stack">
+            <span class="work-tag">Diseño a medida</span>
+            <span class="work-tag">Reservas</span>
+            <span class="work-tag">Catálogo</span>
+            <span class="work-tag">Confirmación automática</span>
           </div>
         </div>
-
-        <!-- 2 -->
-        <div class="card fade-up" style="padding: 28px; transition-delay: 0.1s;">
-          <div class="icon-wrap" style="background: rgba(242,137,72,0.1); border: 1px solid rgba(242,137,72,0.25); margin-bottom: 20px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <rect x="2" y="3" width="20" height="14" rx="2" stroke="#F28948" stroke-width="1.8"/>
-              <path d="M8 21h8M12 17v4" stroke="#F28948" stroke-width="1.8" stroke-linecap="round"/>
-              <path d="M7 8l2 2 4-4" stroke="#F28948" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+        <div class="work-frame is-paused">
+          <div class="work-bar">
+            <span class="work-dot" style="background: #F28948;"></span>
+            <span class="work-dot" style="background: rgba(255,255,255,0.18);"></span>
+            <span class="work-dot" style="background: rgba(255,255,255,0.18);"></span>
+            <span class="work-url">ralban.pe / agenda</span>
           </div>
-          <h3 class="display-md" style="color: var(--cream); margin-bottom: 12px;">AUTOMATIZACIÓN DE PROCESOS</h3>
-          <p style="color: var(--muted); font-size: 0.85rem; line-height: 1.75;">
-            Eliminamos las tareas repetitivas. Flujos automatizados que conectan tus sistemas y operan sin intervención humana.
-          </p>
-          <div style="margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.055); display: flex; align-items: center; justify-content: space-between;">
-            <span style="font-size: 0.7rem; color: var(--muted); font-weight: 500;">CRM · ERP · Email · APIs</span>
-            <span style="color: var(--orange); font-weight: 700; font-size: 1rem;">→</span>
-          </div>
-        </div>
-
-        <!-- 3 -->
-        <div class="card fade-up" style="padding: 28px; transition-delay: 0.15s;">
-          <div class="icon-wrap" style="background: rgba(74,123,239,0.12); border: 1px solid rgba(74,123,239,0.25); margin-bottom: 20px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="3" stroke="#4A7BEF" stroke-width="1.8"/>
-              <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M5.64 18.36l2.12-2.12M16.24 7.76l2.12-2.12" stroke="#4A7BEF" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <h3 class="display-md" style="color: var(--cream); margin-bottom: 12px;">ANÁLISIS INTELIGENTE</h3>
-          <p style="color: var(--muted); font-size: 0.85rem; line-height: 1.75;">
-            Dashboards IA que analizan tus datos en tiempo real y te dan insights accionables para mejores decisiones de negocio.
-          </p>
-          <div style="margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.055); display: flex; align-items: center; justify-content: space-between;">
-            <span style="font-size: 0.7rem; color: var(--muted); font-weight: 500;">KPIs · Reportes · Predicciones</span>
-            <span style="color: var(--blue-mid); font-weight: 700; font-size: 1rem;">→</span>
-          </div>
-        </div>
-
-        <!-- 4 -->
-        <div class="card fade-up" style="padding: 28px; transition-delay: 0.2s;">
-          <div class="icon-wrap" style="background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.22); margin-bottom: 20px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M9 17H7A5 5 0 0 1 7 7h2M15 7h2a5 5 0 1 1 0 10h-2M8 12h8" stroke="#4ade80" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <h3 class="display-md" style="color: var(--cream); margin-bottom: 12px;">INTEGRACIÓN DE SISTEMAS</h3>
-          <p style="color: var(--muted); font-size: 0.85rem; line-height: 1.75;">
-            Conectamos tus herramientas existentes con IA. Integraciones que hacen que tus sistemas colaboren de forma inteligente.
-          </p>
-          <div style="margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.055); display: flex; align-items: center; justify-content: space-between;">
-            <span style="font-size: 0.7rem; color: var(--muted); font-weight: 500;">API · Webhooks · n8n · Zapier</span>
-            <span style="color: #4ade80; font-weight: 700; font-size: 1rem;">→</span>
-          </div>
-        </div>
-
-        <!-- 5 -->
-        <div class="card fade-up" style="padding: 28px; transition-delay: 0.25s;">
-          <div class="icon-wrap" style="background: rgba(123,78,255,0.1); border: 1px solid rgba(123,78,255,0.22); margin-bottom: 20px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#9B76FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <h3 class="display-md" style="color: var(--cream); margin-bottom: 12px;">CONSULTORÍA IA</h3>
-          <p style="color: var(--muted); font-size: 0.85rem; line-height: 1.75;">
-            Evaluamos tu negocio e identificamos las oportunidades de IA con mayor impacto. Estrategia personalizada para tu industria.
-          </p>
-          <div style="margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.055); display: flex; align-items: center; justify-content: space-between;">
-            <span style="font-size: 0.7rem; color: var(--muted); font-weight: 500;">Diagnóstico · Roadmap · ROI</span>
-            <span style="color: var(--purple-soft); font-weight: 700; font-size: 1rem;">→</span>
-          </div>
-        </div>
-
-        <!-- 6: Featured CTA card -->
-        <div class="card-featured fade-up" style="padding: 28px; transition-delay: 0.3s; display: flex; flex-direction: column; justify-content: space-between;">
-          <div>
-            <div class="font-display grad-purple" style="font-size: 4rem; margin-bottom: 8px; line-height: 1;">IA</div>
-            <h3 class="display-md" style="color: var(--cream); margin-bottom: 14px;">SOLUCIONES A MEDIDA</h3>
-            <p style="color: var(--muted); font-size: 0.85rem; line-height: 1.75; margin-bottom: 24px;">
-              ¿Tienes un reto único? Desarrollamos soluciones de IA completamente personalizadas para tu caso de uso específico.
-            </p>
-          </div>
-          <button class="btn-primary" style="width: 100%; justify-content: center;">
-            Hablar con un experto
+          <video muted loop playsinline preload="none" poster="media/videopagweb-poster.jpg"
+                 aria-label="Demostración de una página web con agendamiento de citas">
+            <source src="media/videopagweb.mp4" type="video/mp4">
+          </video>
+          <button class="work-play" type="button" aria-label="Reproducir demostración de página web">
+            <span><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
           </button>
         </div>
-
       </div>
+
+      <!-- ── Demo 2: Cotizaciones ── -->
+      <div class="work-row is-flipped fade-up">
+        <div class="work-copy">
+          <div class="work-sector">Distribución · Callao</div>
+          <h3 class="display-md" style="color: var(--cream); margin-bottom: 14px;">COTIZACIONES EN MINUTOS</h3>
+          <p style="color: var(--muted); font-size: 0.92rem; line-height: 1.78;">
+            El vendedor cotiza desde el celular en plena visita: busca en el catálogo, arma la lista y envía el documento antes de salir del local. Los precios y condiciones salen siempre del mismo lugar.
+          </p>
+          <div class="work-stack">
+            <span class="work-tag">Catálogo vivo</span>
+            <span class="work-tag">Soles y dólares</span>
+            <span class="work-tag">PDF listo</span>
+            <span class="work-tag">Seguimiento</span>
+          </div>
+        </div>
+        <div class="work-frame is-paused">
+          <div class="work-bar">
+            <span class="work-dot" style="background: #4A7BEF;"></span>
+            <span class="work-dot" style="background: rgba(255,255,255,0.18);"></span>
+            <span class="work-dot" style="background: rgba(255,255,255,0.18);"></span>
+            <span class="work-url">app · nueva cotización</span>
+          </div>
+          <video muted loop playsinline preload="none" poster="media/videocotizaciones_automaticas-poster.jpg"
+                 aria-label="Demostración de la aplicación de cotizaciones automáticas">
+            <source src="media/videocotizaciones_automaticas.mp4" type="video/mp4">
+          </video>
+          <button class="work-play" type="button" aria-label="Reproducir demostración de cotizaciones">
+            <span><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── Demo 3: Dashboard ── -->
+      <div class="work-row fade-up">
+        <div class="work-copy">
+          <div class="work-sector">Transporte y logística</div>
+          <h3 class="display-md" style="color: var(--cream); margin-bottom: 14px;">DASHBOARDS QUE SE LEEN DE UN VISTAZO</h3>
+          <p style="color: var(--muted); font-size: 0.92rem; line-height: 1.78;">
+            Ventas por categoría, por vendedor y por canal, con el inventario y los contenedores en tránsito al lado. La reunión de lunes deja de empezar con "déjame armar el Excel".
+          </p>
+          <div class="work-stack">
+            <span class="work-tag">Ventas</span>
+            <span class="work-tag">Inventario</span>
+            <span class="work-tag">Equipo</span>
+            <span class="work-tag">Reportes por periodo</span>
+          </div>
+        </div>
+        <div class="work-frame is-paused">
+          <div class="work-bar">
+            <span class="work-dot" style="background: #9B76FF;"></span>
+            <span class="work-dot" style="background: rgba(255,255,255,0.18);"></span>
+            <span class="work-dot" style="background: rgba(255,255,255,0.18);"></span>
+            <span class="work-url">panel · reportes de ventas</span>
+          </div>
+          <video muted loop playsinline preload="none" poster="media/videodashboard-poster.jpg"
+                 aria-label="Demostración de un dashboard de reportes de ventas">
+            <source src="media/videodashboard.mp4" type="video/mp4">
+          </video>
+          <button class="work-play" type="button" aria-label="Reproducir demostración del dashboard">
+            <span><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── Y además ── -->
+      <div class="fade-up" style="margin-top: 96px;">
+        <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 26px;">
+          <h3 class="display-md" style="color: var(--cream); margin: 0;">Y ADEMÁS</h3>
+          <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.075);"></div>
+        </div>
+
+        <div class="more-grid">
+          <div class="more-item">
+            <h4 style="color: var(--cream); font-size: 0.92rem; font-weight: 600; margin-bottom: 9px;">Chatbots IA en tu web</h4>
+            <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.7; margin: 0;">
+              Un asistente entrenado con tu información que responde y capta al visitante dentro de tu propio sitio.
+            </p>
+          </div>
+          <div class="more-item">
+            <h4 style="color: var(--cream); font-size: 0.92rem; font-weight: 600; margin-bottom: 9px;">Automatización de procesos</h4>
+            <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.7; margin: 0;">
+              Las tareas repetitivas del día pasan a correr solas: reportes, correos, cargas y avisos.
+            </p>
+          </div>
+          <div class="more-item">
+            <h4 style="color: var(--cream); font-size: 0.92rem; font-weight: 600; margin-bottom: 9px;">Integración de sistemas</h4>
+            <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.7; margin: 0;">
+              Conectamos lo que ya usas —ERP, CRM, hojas de cálculo— para que dejen de vivir por separado.
+            </p>
+          </div>
+          <div class="more-item">
+            <h4 style="color: var(--cream); font-size: 0.92rem; font-weight: 600; margin-bottom: 9px;">Consultoría IA</h4>
+            <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.7; margin: 0;">
+              Revisamos tu operación y te decimos qué conviene automatizar primero, con números.
+            </p>
+          </div>
+        </div>
+
+        <p style="color: var(--muted); font-size: 0.88rem; line-height: 1.75; margin-top: 28px;">
+          ¿Tu caso no está en la lista? Casi siempre se puede.
+          <a href="#contacto" style="color: var(--purple-soft); text-decoration: none; border-bottom: 1px solid rgba(155,118,255,0.4);">Cuéntanos qué necesitas</a>.
+        </p>
+      </div>
+
     </div>
   </section>
 
@@ -1130,7 +1272,7 @@
         <div class="card fade-up" style="padding: 28px; transition-delay: 0.05s;">
           <div class="quote-mark">"</div>
           <p style="color: rgba(248,247,245,0.8); font-size: 0.88rem; line-height: 1.78; margin-bottom: 24px; margin-top: 8px;">
-            "DesarroIA implementó nuestro agente de WhatsApp en 2 semanas. Ahora resolvemos el 80% de consultas sin intervención humana. El equipo de soporte ha podido dedicarse a casos complejos."
+            "DesarroIA implementó el asistente de nuestra web en 2 semanas. Ahora resolvemos el 80% de consultas sin intervención humana. El equipo de soporte ha podido dedicarse a casos complejos."
           </p>
           <div style="display: flex; align-items: center; gap: 12px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.055);">
             <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #7B4EFF, #4A7BEF); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue'; font-size: 1.1rem; color: white; flex-shrink: 0;">CM</div>
@@ -1206,7 +1348,7 @@
             Agendar llamada gratuita
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
-          <button class="btn-ghost" style="padding: 15px 42px; font-size: 1rem;">Ver demostración</button>
+          <a href="#servicios" class="btn-ghost" style="padding: 15px 42px; font-size: 1rem; text-decoration: none;">Ver demostraciones</a>
         </div>
 
       </div>
@@ -1436,6 +1578,53 @@
     setTimeout(triggerVisible, 200);
     setTimeout(triggerVisible, 600);
     window.addEventListener('scroll', triggerVisible, { passive: true });
+
+
+    // ═══ Service demo clips: load and play only while on screen ═══
+    (function () {
+      const frames = document.querySelectorAll('.work-frame');
+      if (!frames.length) return;
+
+      const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      frames.forEach(frame => {
+        const video = frame.querySelector('video');
+        const button = frame.querySelector('.work-play');
+        let loaded = false;
+
+        const load = () => {
+          if (loaded) return;
+          loaded = true;
+          video.preload = 'auto';
+          video.load();
+        };
+
+        const play = () => {
+          load();
+          const p = video.play();
+          if (p) p.catch(() => frame.classList.add('is-paused'));
+        };
+
+        video.addEventListener('playing', () => frame.classList.remove('is-paused'));
+        video.addEventListener('pause', () => frame.classList.add('is-paused'));
+
+        button.addEventListener('click', () => {
+          if (video.paused) play(); else video.pause();
+        });
+
+        const watcher = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              if (calm.matches) load(); else play();
+            } else if (!video.paused) {
+              video.pause();
+            }
+          });
+        }, { threshold: 0.35 });
+
+        watcher.observe(frame);
+      });
+    })();
 
     // Navbar scroll effect
     const navbar = document.getElementById('navbar');
