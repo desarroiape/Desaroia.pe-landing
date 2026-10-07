@@ -1003,6 +1003,21 @@
     .vit-swap { animation: none; }
   }
 
+  .delivery-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 20px;
+    border-radius: 999px;
+    font-size: 0.92rem;
+    color: var(--cream);
+    background: rgba(242, 137, 72, 0.1);
+    border: 1px solid rgba(242, 137, 72, 0.32);
+    box-shadow: 0 10px 40px -16px rgba(242, 137, 72, 0.45);
+  }
+  .delivery-pill svg { color: var(--orange); }
+  .delivery-pill strong { color: var(--orange); font-weight: 600; }
+
   /* ═══ SERVICIOS · PROBLEMA → SOLUCIÓN ═══ */
   .ps-row { --bad: #F2645A; --bad-soft: rgba(242, 100, 90, 0.12); }
 
@@ -1102,7 +1117,7 @@
   .ps-row[data-mode="before"] .ps-tab[data-to="before"] { background: var(--bad-soft); color: #FFB3AC; }
   .ps-row[data-mode="after"] .ps-tab[data-to="after"] { background: rgba(123, 78, 255, 0.16); color: var(--cream); }
 
-  .ps-stage { display: grid; min-height: 330px; }
+  .ps-stage { display: grid; min-height: 250px; }
   .ps-state {
     grid-area: 1 / 1;
     opacity: 0;
@@ -1180,14 +1195,14 @@
   @keyframes ps-blink { 0%, 100% { opacity: 0.25; } 40% { opacity: 1; } }
 
   /* Booking (después · web) */
-  .ps-book { flex: 1; display: flex; flex-direction: column; gap: 14px; padding: 16px; }
+  .ps-book { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 18px; padding: 16px; }
   .ps-field { display: flex; flex-direction: column; gap: 7px; }
   .ps-flabel { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
   .ps-chip { align-self: flex-start; font-size: 0.74rem; padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(155,118,255,0.45); background: rgba(123,78,255,0.14); color: var(--cream); }
   .ps-slots { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
   .ps-slots span { text-align: center; font-size: 0.7rem; padding: 7px 0; border-radius: 7px; background: rgba(255,255,255,0.04); color: var(--muted); }
   .ps-slots .ps-slot-pick { color: #fff; background: rgba(123,78,255,0.2); }
-  .ps-row[data-mode="after"] .ps-slot-pick { animation: ps-pick 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.3s both; }
+  .ps-row[data-mode="after"] .ps-slot-pick { animation: ps-pick 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s both; }
   @keyframes ps-pick {
     from { transform: scale(1); background-color: rgba(255,255,255,0.04); }
     50%  { transform: scale(1.1); }
@@ -1215,7 +1230,7 @@
   .ps-check.sm { width: 18px; height: 18px; }
 
   /* Sheet (antes · cotizaciones) */
-  .ps-sheet { padding: 10px 12px 4px; font-size: 0.7rem; }
+  .ps-sheet { padding: 22px 12px 8px; font-size: 0.74rem; display: flex; flex-direction: column; gap: 14px; }
   .ps-tr {
     position: relative;
     display: grid;
@@ -1249,8 +1264,8 @@
     opacity: 0;
   }
   .ps-row[data-mode="before"] .ps-bad::before { animation: ps-flash 0.5s ease var(--f, 2.4s) both; }
-  .ps-row[data-mode="before"] .ps-bad:nth-child(3)::before { --f: 2.4s; }
-  .ps-row[data-mode="before"] .ps-total.ps-bad::before { --f: 3.2s; }
+  .ps-row[data-mode="before"] .ps-bad:nth-child(2)::before { --f: 1.8s; }
+  .ps-row[data-mode="before"] .ps-total.ps-bad::before { --f: 2.6s; }
   .ps-row[data-mode="before"] .ps-flag { animation: ps-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) var(--f) both; }
   @keyframes ps-flash { from { opacity: 0; } to { opacity: 1; } }
   @keyframes ps-pop { from { opacity: 0; transform: translateY(6px) scale(0.8); } to { opacity: 1; transform: none; } }
@@ -1268,7 +1283,7 @@
   .ps-wa-who { display: block; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #6EE7A3; margin-bottom: 2px; }
 
   /* App (después · cotizaciones) */
-  .ps-app { flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 12px; }
+  .ps-app { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 14px; }
   .ps-search { display: flex; align-items: center; gap: 8px; padding: 9px 12px; border-radius: 9px; font-size: 0.72rem; color: var(--muted); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); }
   .ps-item { display: flex; align-items: center; gap: 9px; padding: 7px 10px; font-size: 0.72rem; color: rgba(248,247,245,0.88); border-radius: 8px; background: rgba(255,255,255,0.025); }
   .ps-item small { margin-left: auto; font-size: 0.62rem; color: var(--purple-soft); }
@@ -1276,7 +1291,7 @@
   .ps-sum b { color: var(--cream); font-weight: 600; }
 
   /* Files (antes · dashboard) */
-  .ps-files { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; }
+  .ps-files { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 16px; }
   .ps-file {
     display: flex; align-items: center; gap: 9px;
     width: min(100%, 290px);
@@ -1329,7 +1344,7 @@
     transform-origin: 50% 100%;
     transform: scaleY(var(--h));
   }
-  .ps-row[data-mode="after"] .ps-chart i { animation: ps-grow 0.8s cubic-bezier(0.34, 1.3, 0.64, 1) calc(0.9s + var(--i) * 0.08s) both; }
+  .ps-row[data-mode="after"] .ps-chart i { animation: ps-grow 0.8s cubic-bezier(0.34, 1.3, 0.64, 1) calc(0.3s + var(--i) * 0.08s) both; }
   @keyframes ps-grow { from { transform: scaleY(0); } to { transform: scaleY(var(--h)); } }
 
   /* Metrics strip */
@@ -1351,7 +1366,7 @@
 
   @media (max-width: 560px) {
     .ps { padding: 10px; }
-    .ps-stage { min-height: 320px; }
+    .ps-stage { min-height: 240px; }
     .ps-tr { grid-template-columns: 1fr 34px 62px; padding: 7px 4px; }
     .ps-flag { right: 2px; }
   }
@@ -1539,7 +1554,6 @@
       <!-- Links (hide on mobile) -->
       <div style="display: flex; align-items: center; gap: 36px;" class="nav-links">
         <a href="#servicios" class="nav-link">Servicios</a>
-        <a href="#nosotros" class="nav-link">Nosotros</a>
         <a href="#proceso" class="nav-link">Proceso</a>
         <a href="#resultados" class="nav-link">Resultados</a>
       </div>
@@ -1586,8 +1600,7 @@
 
           <!-- Sub -->
           <p style="color: var(--muted); font-size: 1.05rem; line-height: 1.78; max-width: 480px; margin-bottom: 36px;">
-            Construimos el software que le falta a tu operación: páginas web que venden, cotizaciones
-            automáticas y paneles con tus números al día. Resultados medibles desde el primer mes.
+            Webs, cotizaciones automáticas y paneles con tus números al día, hechos a la medida de tu negocio.
           </p>
 
           <!-- Buttons -->
@@ -1631,7 +1644,7 @@
           <div class="work-sector">Trabajo reciente</div>
           <h2 class="display-lg" style="color: var(--cream); margin-bottom: 18px;">LO QUE YA<br><span class="grad-purple">CONSTRUIMOS</span></h2>
           <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.75; max-width: 340px;">
-            Recorridos reales de webs y sistemas que entregamos. Elige uno o deja que avancen solos.
+            Webs y sistemas reales que ya entregamos.
           </p>
         </div>
 
@@ -1732,7 +1745,7 @@
           DEL PROBLEMA<br><span class="grad-purple">A LA SOLUCIÓN</span>
         </h2>
         <p style="color: var(--muted); font-size: 1rem; line-height: 1.75; max-width: 540px; margin: 0 auto;">
-          Tres trabas que vemos todo el tiempo en negocios como el tuyo, y cómo quedan resueltas con los sistemas que construimos.
+          Tres problemas comunes y cómo los resolvemos.
         </p>
       </div>
 
@@ -1740,21 +1753,10 @@
       <div class="work-row ps-row fade-up" data-mode="before">
         <div class="work-copy">
           <div class="work-sector">Barbería · Lima</div>
-          <h3 class="display-md" style="color: var(--cream); margin-bottom: 22px;">PÁGINAS WEB QUE AGENDAN SOLAS</h3>
+          <h3 class="display-md" style="color: var(--cream); margin-bottom: 22px;">WEBS QUE AGENDAN SOLAS</h3>
           <div class="ps-copy">
-            <div class="ps-point ps-point-before">
-              <span class="ps-label">El problema</span>
-              <p>Cada cita se cuadra por llamada o WhatsApp: idas y vueltas por un horario, llamadas perdidas mientras atiendes y clientes que se cansan de esperar respuesta.</p>
-            </div>
-            <div class="ps-point ps-point-after">
-              <span class="ps-label">La solución</span>
-              <p>El cliente elige servicio y hora en tu web y la cita entra confirmada. Tú solo recibes el aviso.</p>
-            </div>
-          </div>
-          <div class="work-stack">
-            <span class="work-tag">Diseño a medida</span>
-            <span class="work-tag">Reservas</span>
-            <span class="work-tag">Confirmación automática</span>
+            <div class="ps-point ps-point-before"><span class="ps-label">Antes</span><p>Citas por llamada y WhatsApp, con idas y vueltas.</p></div>
+            <div class="ps-point ps-point-after"><span class="ps-label">Ahora</span><p>El cliente reserva solo en tu web.</p></div>
           </div>
         </div>
 
@@ -1764,7 +1766,6 @@
             <button type="button" class="ps-tab" role="tab" data-to="after"><span>Con Desarroia</span><i></i></button>
           </div>
           <div class="ps-stage">
-            <!-- Antes: el chat interminable -->
             <div class="ps-state ps-before">
               <div class="ps-win">
                 <div class="ps-winbar"><span class="ps-dot"></span>WhatsApp · Barbería</div>
@@ -1773,45 +1774,34 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012 4.2 2 2 0 014 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.8 2z" stroke="currentColor" stroke-width="2"/></svg>
                     3 llamadas perdidas
                   </div>
-                  <div class="ps-msg in ps-step" style="--d: .6s;">Hola, ¿tienes hora hoy a las 5?</div>
-                  <div class="ps-msg out ps-step" style="--d: 1.3s;">A las 5 no, tengo 6:30</div>
-                  <div class="ps-msg in ps-step" style="--d: 2s;">Uhm… ¿y mañana temprano?</div>
-                  <div class="ps-msg out ps-step" style="--d: 2.7s;">Mañana 10:00 o 11:30</div>
-                  <div class="ps-msg in ps-step" style="--d: 3.4s;">11:30. ¿Cuánto es corte y barba?</div>
-                  <div class="ps-msg out ps-step" style="--d: 4.1s;">S/ 45. ¿A nombre de quién?</div>
-                  <div class="ps-msg in ps-step" style="--d: 4.8s;">Carlos. ¿Y dónde queda el local?</div>
-                  <div class="ps-typing ps-step" style="--d: 5.5s;"><span></span><span></span><span></span></div>
+                  <div class="ps-msg in ps-step" style="--d: .8s;">¿Tienes hora hoy a las 5?</div>
+                  <div class="ps-msg out ps-step" style="--d: 1.6s;">A las 5 no, ¿6:30?</div>
+                  <div class="ps-msg in ps-step" style="--d: 2.4s;">Mejor mañana… ¿a qué hora?</div>
+                  <div class="ps-typing ps-step" style="--d: 3.2s;"><span></span><span></span><span></span></div>
                 </div>
               </div>
             </div>
-            <!-- Después: reserva en la web -->
             <div class="ps-state ps-after">
               <div class="ps-win">
                 <div class="ps-winbar"><span class="ps-dot is-good"></span>ralban.pe / agenda</div>
                 <div class="ps-book">
                   <div class="ps-field ps-step" style="--d: .2s;">
-                    <span class="ps-flabel">Servicio</span>
-                    <span class="ps-chip is-picked">Corte + barba</span>
-                  </div>
-                  <div class="ps-field ps-step" style="--d: .7s;">
                     <span class="ps-flabel">Mañana</span>
                     <div class="ps-slots">
                       <span>10:00</span><span>10:30</span><span>11:00</span><span class="ps-slot-pick">11:30</span><span>12:00</span>
                     </div>
                   </div>
-                  <div class="ps-cta ps-step" style="--d: 1.8s;">Confirmar cita</div>
-                  <div class="ps-toast ps-step" style="--d: 2.6s;">
+                  <div class="ps-toast ps-step" style="--d: 1.6s;">
                     <span class="ps-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    <div><strong>Cita confirmada</strong><small>Mañana 11:30 · Corte + barba</small></div>
+                    <div><strong>Cita confirmada</strong><small>Mañana 11:30</small></div>
                   </div>
-                  <div class="ps-notify ps-step" style="--d: 3.4s;">Nueva cita en tu agenda · sin una sola llamada</div>
                 </div>
               </div>
             </div>
           </div>
           <div class="ps-metrics">
-            <div class="ps-metric"><span class="ps-mlabel">Mensajes para una cita</span><span class="ps-mval"><b class="v-before">7</b><b class="v-after">0</b></span></div>
             <div class="ps-metric"><span class="ps-mlabel">Llamadas perdidas</span><span class="ps-mval"><b class="v-before">3</b><b class="v-after">0</b></span></div>
+            <div class="ps-metric"><span class="ps-mlabel">Cita confirmada</span><span class="ps-mval"><b class="v-before">Pendiente</b><b class="v-after">Al instante</b></span></div>
           </div>
         </div>
       </div>
@@ -1822,19 +1812,8 @@
           <div class="work-sector">Distribuidora · equipo comercial</div>
           <h3 class="display-md" style="color: var(--cream); margin-bottom: 22px;">COTIZACIONES EN MINUTOS</h3>
           <div class="ps-copy">
-            <div class="ps-point ps-point-before">
-              <span class="ps-label">El problema</span>
-              <p>Cotizar a mano en Excel se come la tarde y se cuelan errores: precios de una lista vieja, IGV mal calculado y el cliente preguntando si ya está.</p>
-            </div>
-            <div class="ps-point ps-point-after">
-              <span class="ps-label">La solución</span>
-              <p>El vendedor arma la cotización desde el celular con los precios del catálogo, el total se calcula solo y el PDF le llega al cliente en minutos.</p>
-            </div>
-          </div>
-          <div class="work-stack">
-            <span class="work-tag">Catálogo vivo</span>
-            <span class="work-tag">Soles y dólares</span>
-            <span class="work-tag">PDF listo</span>
+            <div class="ps-point ps-point-before"><span class="ps-label">Antes</span><p>Cotizar en Excel tomaba horas y traía errores.</p></div>
+            <div class="ps-point ps-point-after"><span class="ps-label">Ahora</span><p>Lista en minutos, con precios correctos.</p></div>
           </div>
         </div>
 
@@ -1844,27 +1823,19 @@
             <button type="button" class="ps-tab" role="tab" data-to="after"><span>Con Desarroia</span><i></i></button>
           </div>
           <div class="ps-stage">
-            <!-- Antes: Excel a mano -->
             <div class="ps-state ps-before">
               <div class="ps-win">
                 <div class="ps-winbar">
-                  <span class="ps-dot"></span>cotizacion_final_v4.xlsx
+                  <span class="ps-dot"></span>cotizacion_v4.xlsx
                   <span class="ps-timer is-bad"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="13" r="8" stroke="currentColor" stroke-width="2"/><path d="M12 9v4l2.5 2M9 2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-count="95" data-format="hm">0 min</span></span>
                 </div>
                 <div class="ps-sheet">
-                  <div class="ps-tr ps-th"><span>Producto</span><span>Cant.</span><span>Precio</span></div>
-                  <div class="ps-tr ps-step" style="--d: .3s;"><span>Producto 1024 · caja x12</span><span>120</span><span>S/ 28.50</span></div>
-                  <div class="ps-tr ps-step ps-bad" style="--d: .9s;"><span>Producto 2310 · bolsa</span><span>80</span><span>S/ 41.90</span><em class="ps-flag" style="--f: 2.4s;">Precio de lista vieja</em></div>
-                  <div class="ps-tr ps-step" style="--d: 1.5s;"><span>Producto 0877 · rollo</span><span>25</span><span>S/ 6.20</span></div>
-                  <div class="ps-tr ps-total ps-step ps-bad" style="--d: 2s;"><span>IGV 18%</span><span></span><span>S/ 1,825.38</span><em class="ps-flag" style="--f: 3.2s;">IGV sumado dos veces</em></div>
-                </div>
-                <div class="ps-wa ps-step" style="--d: 4.2s;">
-                  <span class="ps-wa-who">Cliente</span>
-                  ¿Ya tienen la cotización? Necesito comparar hoy.
+                  <div class="ps-tr ps-step" style="--d: .3s;"><span>Producto A</span><span>120</span><span>S/ 28.50</span></div>
+                  <div class="ps-tr ps-step ps-bad" style="--d: .8s;"><span>Producto B</span><span>80</span><span>S/ 41.90</span><em class="ps-flag" style="--f: 1.8s;">Precio viejo</em></div>
+                  <div class="ps-tr ps-total ps-step ps-bad" style="--d: 1.3s;"><span>Total + IGV</span><span></span><span>S/ 7,912</span><em class="ps-flag" style="--f: 2.6s;">IGV doble</em></div>
                 </div>
               </div>
             </div>
-            <!-- Después: app de cotizaciones -->
             <div class="ps-state ps-after">
               <div class="ps-win">
                 <div class="ps-winbar">
@@ -1872,25 +1843,19 @@
                   <span class="ps-timer is-good"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="13" r="8" stroke="currentColor" stroke-width="2"/><path d="M12 9v4l2.5 2M9 2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-count="3" data-format="min">0 min</span></span>
                 </div>
                 <div class="ps-app">
-                  <div class="ps-search ps-step" style="--d: .2s;">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                    Buscar en el catálogo…
-                  </div>
-                  <div class="ps-item ps-step" style="--d: .6s;"><span class="ps-check sm"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Producto 1024 · caja x12<small>precio de catálogo</small></div>
-                  <div class="ps-item ps-step" style="--d: 1s;"><span class="ps-check sm"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Producto 2310 · bolsa<small>precio de catálogo</small></div>
-                  <div class="ps-item ps-step" style="--d: 1.4s;"><span class="ps-check sm"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Producto 0877 · rollo<small>precio de catálogo</small></div>
-                  <div class="ps-sum ps-step" style="--d: 1.9s;"><span>Subtotal + IGV 18%</span><b>calculado solo</b></div>
-                  <div class="ps-toast ps-step" style="--d: 2.7s;">
+                  <div class="ps-item ps-step" style="--d: .3s;"><span class="ps-check sm"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Producto A</div>
+                  <div class="ps-item ps-step" style="--d: .7s;"><span class="ps-check sm"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Producto B</div>
+                  <div class="ps-toast ps-step" style="--d: 1.6s;">
                     <span class="ps-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    <div><strong>PDF enviado al cliente</strong><small>Llegó a su correo antes de salir del local</small></div>
+                    <div><strong>PDF enviado al cliente</strong><small>Precios e IGV correctos</small></div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="ps-metrics">
-            <div class="ps-metric"><span class="ps-mlabel">Tiempo por cotización</span><span class="ps-mval"><b class="v-before">Horas</b><b class="v-after">Minutos</b></span></div>
-            <div class="ps-metric"><span class="ps-mlabel">Errores en esta cotización</span><span class="ps-mval"><b class="v-before">2</b><b class="v-after">0</b></span></div>
+            <div class="ps-metric"><span class="ps-mlabel">Tiempo</span><span class="ps-mval"><b class="v-before">Horas</b><b class="v-after">Minutos</b></span></div>
+            <div class="ps-metric"><span class="ps-mlabel">Errores</span><span class="ps-mval"><b class="v-before">2</b><b class="v-after">0</b></span></div>
           </div>
         </div>
       </div>
@@ -1899,70 +1864,47 @@
       <div class="work-row ps-row fade-up" data-mode="before">
         <div class="work-copy">
           <div class="work-sector">Transporte y logística · gerencia</div>
-          <h3 class="display-md" style="color: var(--cream); margin-bottom: 22px;">DASHBOARDS QUE SE LEEN DE UN VISTAZO</h3>
+          <h3 class="display-md" style="color: var(--cream); margin-bottom: 22px;">TUS NÚMEROS DE UN VISTAZO</h3>
           <div class="ps-copy">
-            <div class="ps-point ps-point-before">
-              <span class="ps-label">El problema</span>
-              <p>Los números viven en varios Excel. Armar el reporte toma horas y cuando llega a la reunión del lunes ya está desactualizado.</p>
-            </div>
-            <div class="ps-point ps-point-after">
-              <span class="ps-label">La solución</span>
-              <p>Un solo panel con ventas, inventario y contenedores en tránsito, al día y listo para abrir en la reunión.</p>
-            </div>
-          </div>
-          <div class="work-stack">
-            <span class="work-tag">Ventas</span>
-            <span class="work-tag">Inventario</span>
-            <span class="work-tag">Reportes por periodo</span>
+            <div class="ps-point ps-point-before"><span class="ps-label">Antes</span><p>Datos en varios Excel, siempre atrasados.</p></div>
+            <div class="ps-point ps-point-after"><span class="ps-label">Ahora</span><p>Un panel al día, listo para la reunión.</p></div>
           </div>
         </div>
 
-        <div class="ps" aria-label="Antes y después: el reporte del lunes">
+        <div class="ps" aria-label="Antes y después: el reporte de ventas">
           <div class="ps-switch" role="tablist">
             <button type="button" class="ps-tab" role="tab" data-to="before"><span>Antes</span><i></i></button>
             <button type="button" class="ps-tab" role="tab" data-to="after"><span>Con Desarroia</span><i></i></button>
           </div>
           <div class="ps-stage">
-            <!-- Antes: archivos sueltos -->
             <div class="ps-state ps-before">
               <div class="ps-win">
                 <div class="ps-winbar"><span class="ps-dot"></span>Descargas</div>
                 <div class="ps-files">
-                  <div class="ps-file ps-step" style="--d: .2s; --r: -3deg;"><span class="ps-xls">X</span>ventas_marzo_FINAL.xlsx</div>
-                  <div class="ps-file ps-step" style="--d: .6s; --r: 2deg;"><span class="ps-xls">X</span>ventas_marzo_FINAL_v2.xlsx</div>
+                  <div class="ps-file ps-step" style="--d: .2s; --r: -3deg;"><span class="ps-xls">X</span>ventas_FINAL.xlsx</div>
+                  <div class="ps-file ps-step" style="--d: .6s; --r: 2deg;"><span class="ps-xls">X</span>ventas_FINAL_v2.xlsx</div>
                   <div class="ps-file ps-step" style="--d: 1s; --r: -1.5deg;"><span class="ps-xls">X</span>inventario (3).xlsx</div>
-                  <div class="ps-file ps-step" style="--d: 1.4s; --r: 2.5deg;"><span class="ps-xls">X</span>contenedores_actualizado.xlsx</div>
-                  <div class="ps-load ps-step" style="--d: 2s;">
-                    <span>Armando el reporte del lunes…</span>
-                    <div class="ps-loadbar"><i></i></div>
-                  </div>
-                  <div class="ps-stale ps-step" style="--d: 3.2s;">Datos de hace 9 días</div>
+                  <div class="ps-stale ps-step" style="--d: 1.8s;">Desactualizado</div>
                 </div>
               </div>
             </div>
-            <!-- Después: panel en vivo -->
             <div class="ps-state ps-after">
               <div class="ps-win">
-                <div class="ps-winbar"><span class="ps-dot is-good"></span>panel · reportes de ventas <span class="ps-live">En vivo</span></div>
+                <div class="ps-winbar"><span class="ps-dot is-good"></span>panel de ventas <span class="ps-live">En vivo</span></div>
                 <div class="ps-dash">
-                  <div class="ps-kpis">
-                    <div class="ps-kpi ps-step" style="--d: .2s;"><small>Ventas</small><span class="ps-kbar" style="--w: .78;"></span></div>
-                    <div class="ps-kpi ps-step" style="--d: .4s;"><small>Inventario</small><span class="ps-kbar" style="--w: .56;"></span></div>
-                    <div class="ps-kpi ps-step" style="--d: .6s;"><small>En tránsito</small><span class="ps-kbar" style="--w: .34;"></span></div>
-                  </div>
-                  <div class="ps-chart ps-step" style="--d: .8s;">
+                  <div class="ps-chart ps-step" style="--d: .2s;">
                     <i style="--h: .42; --i: 0;"></i><i style="--h: .58; --i: 1;"></i><i style="--h: .5; --i: 2;"></i><i style="--h: .71; --i: 3;"></i><i style="--h: .64; --i: 4;"></i><i style="--h: .86; --i: 5;"></i><i style="--h: .93; --i: 6;"></i>
                   </div>
-                  <div class="ps-toast ps-step" style="--d: 2.4s;">
+                  <div class="ps-toast ps-step" style="--d: 1.6s;">
                     <span class="ps-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    <div><strong>Reporte listo</strong><small>Actualizado hace 1 minuto</small></div>
+                    <div><strong>Reporte listo</strong><small>Actualizado hoy</small></div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="ps-metrics">
-            <div class="ps-metric"><span class="ps-mlabel">Archivos para un reporte</span><span class="ps-mval"><b class="v-before">4</b><b class="v-after">1 panel</b></span></div>
+            <div class="ps-metric"><span class="ps-mlabel">Archivos</span><span class="ps-mval"><b class="v-before">3 Excel</b><b class="v-after">1 panel</b></span></div>
             <div class="ps-metric"><span class="ps-mlabel">Datos de</span><span class="ps-mval"><b class="v-before">Hace días</b><b class="v-after">Hoy</b></span></div>
           </div>
         </div>
@@ -1979,25 +1921,25 @@
           <div class="more-item">
             <h4 style="color: var(--cream); font-size: 0.92rem; font-weight: 600; margin-bottom: 9px;">Chatbots IA en tu web</h4>
             <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.7; margin: 0;">
-              Un asistente entrenado con tu información que responde y capta al visitante dentro de tu propio sitio.
+              Responde a tus clientes las 24 horas.
             </p>
           </div>
           <div class="more-item">
             <h4 style="color: var(--cream); font-size: 0.92rem; font-weight: 600; margin-bottom: 9px;">Automatización de procesos</h4>
             <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.7; margin: 0;">
-              Las tareas repetitivas del día pasan a correr solas: reportes, correos, cargas y avisos.
+              Reportes, correos y avisos que se hacen solos.
             </p>
           </div>
           <div class="more-item">
             <h4 style="color: var(--cream); font-size: 0.92rem; font-weight: 600; margin-bottom: 9px;">Integración de sistemas</h4>
             <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.7; margin: 0;">
-              Conectamos lo que ya usas —ERP, CRM, hojas de cálculo— para que dejen de vivir por separado.
+              Conectamos las herramientas que ya usas.
             </p>
           </div>
           <div class="more-item">
             <h4 style="color: var(--cream); font-size: 0.92rem; font-weight: 600; margin-bottom: 9px;">Consultoría IA</h4>
             <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.7; margin: 0;">
-              Revisamos tu operación y te decimos qué conviene automatizar primero, con números.
+              Te decimos qué automatizar primero.
             </p>
           </div>
         </div>
@@ -2011,100 +1953,19 @@
     </div>
   </section>
 
-  <!-- ═══════════════ ABOUT ═══════════════ -->
-  <section id="nosotros" style="padding: 100px 0; position: relative; overflow: hidden;">
-    <div class="orb" style="width: 600px; height: 600px; background: #7B4EFF; opacity: 0.055; top: 50%; left: 55%; transform: translate(-50%, -50%);"></div>
-
-    <div style="max-width: 1280px; margin: 0 auto; padding: 0 32px;">
-      <div class="about-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
-
-        <!-- Left -->
-        <div class="fade-up">
-          <div class="badge-purple" style="margin-bottom: 24px;">Quiénes somos</div>
-          <h2 class="display-lg" style="color: var(--cream); margin-bottom: 24px;">
-            TALENTO JOVEN,<br>
-            <span class="grad-purple">TECNOLOGÍA</span><br>
-            DEL FUTURO
-          </h2>
-          <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.78; margin-bottom: 18px;">
-            Somos un equipo de talentos jóvenes impulsados por una meta clara: redefinir la operatividad de las pequeñas y medianas empresas.
-          </p>
-          <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.78; margin-bottom: 36px;">
-            Aprovechamos lo último en Inteligencia Artificial para transformar la atención al cliente, convirtiendo procesos complejos en experiencias ágiles, precisas y automatizadas.
-          </p>
-
-          <!-- Values -->
-          <div style="display: flex; flex-direction: column; gap: 18px;">
-            <div style="display: flex; align-items: flex-start; gap: 14px;">
-              <div style="width: 20px; height: 20px; border-radius: 50%; background: rgba(123,78,255,0.15); border: 1px solid rgba(123,78,255,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
-                <div style="width: 7px; height: 7px; background: var(--purple-soft); border-radius: 50%;"></div>
-              </div>
-              <div>
-                <div style="font-size: 0.875rem; font-weight: 600; color: var(--cream); margin-bottom: 3px;">Enfocados en resultados</div>
-                <div style="font-size: 0.82rem; color: var(--muted); line-height: 1.6;">Cada solución se mide por su impacto real en tu negocio, no por métricas de vanidad.</div>
-              </div>
-            </div>
-            <div style="display: flex; align-items: flex-start; gap: 14px;">
-              <div style="width: 20px; height: 20px; border-radius: 50%; background: rgba(242,137,72,0.15); border: 1px solid rgba(242,137,72,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
-                <div style="width: 7px; height: 7px; background: var(--orange); border-radius: 50%;"></div>
-              </div>
-              <div>
-                <div style="font-size: 0.875rem; font-weight: 600; color: var(--cream); margin-bottom: 3px;">Implementación rápida</div>
-                <div style="font-size: 0.82rem; color: var(--muted); line-height: 1.6;">De la idea al sistema en producción en semanas, no meses.</div>
-              </div>
-            </div>
-            <div style="display: flex; align-items: flex-start; gap: 14px;">
-              <div style="width: 20px; height: 20px; border-radius: 50%; background: rgba(74,123,239,0.15); border: 1px solid rgba(74,123,239,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
-                <div style="width: 7px; height: 7px; background: var(--blue-mid); border-radius: 50%;"></div>
-              </div>
-              <div>
-                <div style="font-size: 0.875rem; font-weight: 600; color: var(--cream); margin-bottom: 3px;">Soporte continuo</div>
-                <div style="font-size: 0.82rem; color: var(--muted); line-height: 1.6;">Acompañamiento permanente para optimizar y escalar tu solución.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: Stats -->
-        <div class="fade-up about-stats" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; transition-delay: 0.2s;">
-          <div class="card" style="padding: 28px; text-align: center;">
-            <div class="font-display grad-purple" style="font-size: 3.5rem; margin-bottom: 8px;">3</div>
-            <div style="font-size: 0.85rem; font-weight: 600; color: var(--cream); margin-bottom: 4px;">Sistemas en uso</div>
-            <div style="font-size: 0.75rem; color: var(--muted);">web, cotizaciones y gestión</div>
-          </div>
-          <div class="card" style="padding: 28px; text-align: center; background: rgba(123,78,255,0.07); border-color: rgba(123,78,255,0.18);">
-            <div class="font-display" style="font-size: 3.5rem; color: var(--cream); margin-bottom: 8px;">24/7</div>
-            <div style="font-size: 0.85rem; font-weight: 600; color: var(--cream); margin-bottom: 4px;">Disponibilidad</div>
-            <div style="font-size: 0.75rem; color: var(--muted);">sistemas siempre activos</div>
-          </div>
-          <div class="card" style="padding: 28px; text-align: center; background: rgba(242,137,72,0.06); border-color: rgba(242,137,72,0.18);">
-            <div class="font-display grad-orange" style="font-size: 3.5rem; margin-bottom: 8px;">2 sem.</div>
-            <div style="font-size: 0.85rem; font-weight: 600; color: var(--cream); margin-bottom: 4px;">Primera entrega</div>
-            <div style="font-size: 0.75rem; color: var(--muted);">del acuerdo al sistema andando</div>
-          </div>
-          <div class="card" style="padding: 28px; text-align: center;">
-            <div class="font-display grad-purple" style="font-size: 3.5rem; margin-bottom: 8px;">100%</div>
-            <div style="font-size: 0.85rem; font-weight: 600; color: var(--cream); margin-bottom: 4px;">A medida</div>
-            <div style="font-size: 0.75rem; color: var(--muted);">construido para tu operación</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
   <!-- ═══════════════ HOW IT WORKS ═══════════════ -->
   <section id="proceso" style="padding: 100px 0; position: relative;">
 
     <div style="max-width: 1280px; margin: 0 auto; padding: 0 32px;">
       <div class="fade-up" style="text-align: center; margin-bottom: 72px;">
         <div class="badge-orange" style="margin-bottom: 20px;">Proceso</div>
-        <h2 class="display-lg" style="color: var(--cream); margin-bottom: 16px;">
+        <h2 class="display-lg" style="color: var(--cream); margin-bottom: 22px;">
           CÓMO <span class="grad-purple">FUNCIONA</span>
         </h2>
-        <p style="color: var(--muted); font-size: 1rem; line-height: 1.75; max-width: 480px; margin: 0 auto;">
-          De la primera conversación al sistema en producción, te guiamos en cada paso del camino.
-        </p>
+        <div class="delivery-pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="13" r="8" stroke="currentColor" stroke-width="2"/><path d="M12 9v4l2.5 2M9 2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span>Primera entrega desde <strong>2 semanas</strong></span>
+        </div>
       </div>
 
       <!-- Steps -->
@@ -2116,28 +1977,28 @@
         <div class="fade-up" style="text-align: center; position: relative; z-index: 1; transition-delay: 0.05s;">
           <div class="step-num" style="background: linear-gradient(135deg, #7B4EFF, #4A7BEF); color: white; box-shadow: 0 0 32px rgba(123,78,255,0.45);">1</div>
           <h3 class="display-md" style="color: var(--cream); margin-bottom: 10px;">DIAGNÓSTICO</h3>
-          <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.72;">Analizamos tus procesos e identificamos dónde la IA genera mayor impacto y ROI.</p>
+          <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.72;">Vemos dónde pierdes tiempo hoy.</p>
         </div>
 
         <!-- Step 2 -->
         <div class="fade-up" style="text-align: center; position: relative; z-index: 1; transition-delay: 0.15s;">
           <div class="step-num" style="background: rgba(123,78,255,0.14); border: 1px solid rgba(123,78,255,0.35); color: var(--purple-soft);">2</div>
           <h3 class="display-md" style="color: var(--cream); margin-bottom: 10px;">DISEÑO</h3>
-          <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.72;">Creamos la arquitectura de la solución adaptada exactamente a tus necesidades.</p>
+          <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.72;">Definimos la solución a tu medida.</p>
         </div>
 
         <!-- Step 3 -->
         <div class="fade-up" style="text-align: center; position: relative; z-index: 1; transition-delay: 0.25s;">
           <div class="step-num" style="background: rgba(74,123,239,0.14); border: 1px solid rgba(74,123,239,0.35); color: var(--blue-mid);">3</div>
           <h3 class="display-md" style="color: var(--cream); margin-bottom: 10px;">IMPLEMENTACIÓN</h3>
-          <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.72;">Desarrollamos e integramos la solución en tiempo récord con pruebas exhaustivas.</p>
+          <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.72;">La construimos y la dejamos funcionando.</p>
         </div>
 
         <!-- Step 4 -->
         <div class="fade-up" style="text-align: center; position: relative; z-index: 1; transition-delay: 0.35s;">
           <div class="step-num" style="background: rgba(242,137,72,0.12); border: 1px solid rgba(242,137,72,0.32); color: var(--orange);">4</div>
           <h3 class="display-md" style="color: var(--cream); margin-bottom: 10px;">OPTIMIZACIÓN</h3>
-          <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.72;">Monitoreamos y mejoramos continuamente para maximizar tus resultados.</p>
+          <p style="color: var(--muted); font-size: 0.82rem; line-height: 1.72;">La seguimos mejorando contigo.</p>
         </div>
       </div>
     </div>
@@ -2437,7 +2298,6 @@
       </a>
       <div style="display: flex; align-items: center; gap: 28px; flex-wrap: wrap;">
         <a href="#servicios" style="color: var(--muted); font-size: 0.82rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--muted)'">Servicios</a>
-        <a href="#nosotros" style="color: var(--muted); font-size: 0.82rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--muted)'">Nosotros</a>
         <a href="#proceso" style="color: var(--muted); font-size: 0.82rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--muted)'">Proceso</a>
         <a href="#resultados" style="color: var(--muted); font-size: 0.82rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--muted)'">Resultados</a>
       </div>
@@ -2520,7 +2380,7 @@
       const rows = document.querySelectorAll('.ps-row');
       if (!rows.length) return;
       const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
-      const SPAN = { before: 7000, after: 6000 };
+      const SPAN = { before: 5500, after: 5000 };
 
       function fmt(v, format) {
         if (format === 'hm') {
