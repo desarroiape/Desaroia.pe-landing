@@ -844,6 +844,324 @@
     .work-play span, .work-play:hover span { transition: none; transform: none; }
   }
 
+  /* ═══ HERO · VITRINA DE PROYECTOS ═══ */
+  .vitrina {
+    position: relative;
+    width: 100%;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+  .vit-stage {
+    display: grid;
+    padding-top: 56px;
+    touch-action: pan-y;
+  }
+  .vit-card {
+    grid-area: 1 / 1;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #0B0E1A;
+    border: 1px solid rgba(255, 255, 255, 0.085);
+    box-shadow:
+      0 40px 90px -30px rgba(0, 0, 0, 0.85),
+      0 0 70px -30px rgba(123, 78, 255, 0.22);
+    transform-origin: 50% 0;
+    transition:
+      transform 0.7s cubic-bezier(0.34, 1.3, 0.64, 1),
+      opacity 0.5s ease;
+    will-change: transform, opacity;
+  }
+  .vit-card video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1280 / 688;
+    object-fit: cover;
+    background: #0B0E1A;
+  }
+  .vit-card[data-pos="0"] { transform: none; opacity: 1; z-index: 4; }
+  .vit-card[data-pos="1"] { transform: translateY(-26px) scale(0.93); opacity: 0.5; z-index: 3; cursor: pointer; }
+  .vit-card[data-pos="2"] { transform: translateY(-48px) scale(0.86); opacity: 0.22; z-index: 2; }
+  .vit-card[data-pos="3"] { transform: translateY(-64px) scale(0.8); opacity: 0; z-index: 1; }
+  .vit-card[data-pos="out"] {
+    transform: translate(-34%, 18px) rotate(-5deg) scale(0.94);
+    opacity: 0;
+    z-index: 5;
+    transition:
+      transform 0.6s cubic-bezier(0.5, 0, 0.75, 0),
+      opacity 0.45s ease 0.1s;
+  }
+  .vit-card[data-pos="in"] {
+    transform: translate(-34%, 18px) rotate(-5deg) scale(0.94);
+    opacity: 0;
+    z-index: 5;
+    transition: none;
+  }
+  .vit-card[data-pos="1"]:hover { opacity: 0.7; }
+
+  .vit-caption {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 26px;
+  }
+  .vit-caption .work-sector { margin-bottom: 8px; }
+  .vit-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 2.6vw, 36px);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: var(--cream);
+  }
+  .vit-swap { animation: vit-swap 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) both; }
+  @keyframes vit-swap {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .vit-arrows { display: flex; gap: 8px; flex-shrink: 0; }
+  .vit-arrow {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cream);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition:
+      transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+      background-color 0.25s ease,
+      border-color 0.25s ease;
+  }
+  .vit-arrow:hover {
+    background: rgba(123, 78, 255, 0.16);
+    border-color: rgba(155, 118, 255, 0.45);
+    transform: translateY(-2px);
+  }
+  .vit-arrow:active { transform: scale(0.92); }
+  .vit-arrow:focus-visible { outline: 2px solid var(--purple-soft); outline-offset: 3px; }
+
+  .vit-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 22px;
+  }
+  .vit-tab {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    padding: 6px 0;
+    border: 0;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+  }
+  .vit-tab-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.25s ease;
+  }
+  .vit-tab-bar {
+    position: relative;
+    display: block;
+    height: 2px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+  }
+  .vit-tab-bar i {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #9B76FF, #4A7BEF);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+  }
+  .vit-tab:hover .vit-tab-label { color: rgba(248, 247, 245, 0.85); }
+  .vit-tab:active .vit-tab-label { color: var(--purple-soft); }
+  .vit-tab[aria-selected="true"] .vit-tab-label { color: var(--cream); }
+  .vit-tab:focus-visible { outline: 2px solid var(--purple-soft); outline-offset: 4px; border-radius: 4px; }
+
+  @media (max-width: 560px) {
+    .vit-stage { padding-top: 40px; }
+    .vit-card[data-pos="1"] { transform: translateY(-18px) scale(0.94); }
+    .vit-card[data-pos="2"] { transform: translateY(-34px) scale(0.88); }
+    .vit-tabs { gap: 6px; }
+    .vit-tab-label { font-size: 0.66rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .vit-card, .vit-card[data-pos="out"], .vit-arrow, .vit-arrow:hover { transition: none; }
+    .vit-swap { animation: none; }
+  }
+
+  /* ═══ HERO · VIDEO DE FONDO ═══ */
+  .hero-media {
+    position: absolute;
+    inset: -2px 0 0;
+    z-index: 0;
+    overflow: hidden;
+    will-change: transform;
+  }
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 62% 50%;
+    filter: saturate(0.85) contrast(1.06);
+    opacity: 0;
+    transform: scale(1.14);
+    transition:
+      opacity 1.6s ease,
+      transform 3.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .hero-video.is-ready { opacity: 1; transform: scale(1.03); }
+
+  /* Color treatment: the white office goes ink-blue, matching the floating UI in the clip */
+  .hero-tint {
+    position: absolute;
+    inset: 0;
+    background: #2649A1;
+    mix-blend-mode: multiply;
+    opacity: 0.6;
+  }
+  .hero-shade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(8,10,18,0.97) 0%, rgba(8,10,18,0.86) 30%, rgba(8,10,18,0.32) 60%, rgba(8,10,18,0.12) 100%),
+      linear-gradient(180deg, rgba(8,10,18,0.75) 0%, rgba(8,10,18,0) 20%),
+      radial-gradient(55% 55% at 72% 42%, rgba(123,78,255,0.2), transparent 70%);
+  }
+  /* Lives outside .hero-media so the parallax never drags it away from the edge */
+  .hero-fade {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 45%;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(0deg, #080A12 0%, rgba(8,10,18,0.65) 38%, rgba(8,10,18,0) 100%);
+  }
+  .hero .display-xl { font-size: clamp(48px, 6.4vw, 94px); }
+
+  .hero-dim {
+    position: absolute;
+    inset: 0;
+    background: #080A12;
+    opacity: 0;
+  }
+
+  .hero-copy { max-width: 620px; }
+  .hero-copy > * { animation: hero-rise 0.9s cubic-bezier(0.34, 1.3, 0.64, 1) both; }
+  .hero-copy > :nth-child(1) { animation-delay: 0.25s; }
+  .hero-copy > :nth-child(2) { animation-delay: 0.38s; }
+  .hero-copy > :nth-child(3) { animation-delay: 0.52s; }
+  .hero-copy > :nth-child(4) { animation-delay: 0.64s; }
+  .hero-copy > :nth-child(5) { animation-delay: 0.76s; }
+  @keyframes hero-rise {
+    from { opacity: 0; transform: translateY(26px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .hero-inner { will-change: transform, opacity; }
+
+  /* Showcase band rides up over the bottom of the film */
+  .vit-section {
+    position: relative;
+    z-index: 3;
+    margin-top: -150px;
+    padding: 0 0 100px;
+  }
+  .vit-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 4.4fr) minmax(0, 7fr);
+    gap: 56px;
+    align-items: end;
+  }
+  .vit-intro { padding-bottom: 92px; }
+  .vit-layout .vitrina { max-width: 700px; margin-right: 0; }
+
+  @media (max-width: 1023px) {
+    .vit-layout { grid-template-columns: 1fr; gap: 36px; }
+    .vit-intro { padding-bottom: 0; }
+    .vit-section { margin-top: -40px; }
+    .vit-layout .vitrina { margin: 0 auto; }
+  }
+  @media (max-width: 767px) {
+    .hero-video { object-position: 72% 50%; }
+    .hero-shade {
+      background:
+        linear-gradient(180deg, rgba(8,10,18,0.74) 0%, rgba(8,10,18,0.46) 34%, rgba(8,10,18,0.66) 70%, #080A12 100%),
+        radial-gradient(70% 40% at 70% 40%, rgba(123,78,255,0.18), transparent 70%);
+    }
+    body > section.vit-section { margin-top: 0; padding-top: 24px !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-video { transition: opacity 0.6s ease; transform: none; }
+    .hero-video.is-ready { transform: none; }
+    .hero-copy > * { animation: none; }
+  }
+
+  /* ═══ RESPONSIVE · TABLET Y CELULAR ═══ */
+  @media (max-width: 1023px) {
+    .testi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    .steps-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; row-gap: 48px !important; }
+    .about-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+    .nav-links { display: none !important; }
+    body > section.hero { min-height: 0; }
+  }
+
+  @media (max-width: 767px) {
+    /* Navbar: logo + one compact button; section links live in the footer */
+    #navbar > div { padding: 0 20px !important; }
+    #navbar .logo-pill { padding: 6px 12px; flex-shrink: 0; }
+    #navbar .logo-pill img { height: 24px !important; }
+    .nav-cta { padding: 10px 18px; font-size: 0.85rem; }
+    .hide-sm { display: none; }
+
+    /* Gutters and section rhythm */
+    [style*="padding: 0 32px"] { padding-left: 20px !important; padding-right: 20px !important; }
+    body > section { padding-top: 72px !important; padding-bottom: 72px !important; }
+    body > section [style*="margin-bottom: 72px"],
+    body > section [style*="margin-bottom: 64px"] { margin-bottom: 44px !important; }
+
+    /* Hero */
+    body > section.hero { min-height: 0; padding-top: 108px !important; padding-bottom: 32px !important; }
+    .hero .btn-primary, .hero .btn-ghost { flex: 1 1 100%; justify-content: center; }
+    .hero [style*="margin-bottom: 52px"] { margin-bottom: 40px !important; }
+    .hero-stats { justify-content: space-between; }
+    .hero-stats > div { padding-right: 0 !important; margin-right: 0 !important; }
+    .hero-stats .font-display { font-size: 2rem !important; white-space: nowrap; }
+    .vit-caption .work-sector { font-size: 0.6rem; letter-spacing: 0.1em; }
+
+    /* Grids collapse to one column */
+    .testi-grid, .steps-grid, .form-row { grid-template-columns: 1fr !important; }
+    .steps-grid { row-gap: 40px !important; }
+    .about-stats { gap: 12px !important; }
+    .about-stats .card { padding: 22px 14px !important; }
+    .about-stats .font-display { font-size: 2.6rem !important; white-space: nowrap; }
+
+    /* CTA card */
+    .cta-card { padding: 48px 22px !important; border-radius: 22px !important; }
+    .cta-card .btn-primary, .cta-card .btn-ghost { flex: 1 1 100%; justify-content: center; padding-left: 20px !important; padding-right: 20px !important; }
+
+    /* 16px fields stop iOS from zooming the page on focus */
+    #contact-form input, #contact-form textarea, #chat-input { font-size: 16px !important; }
+    #chat-widget { bottom: 16px; right: 16px; }
+
+    /* Glows never widen the page */
+    .orb { max-width: 100vw; }
+  }
+
   </style>
   <meta name="facebook-domain-verification" content="d44l9bcvah4yuda23ldjoz69ymkb58" />
 </head>
@@ -859,7 +1177,7 @@
       </a>
 
       <!-- Links (hide on mobile) -->
-      <div style="display: flex; align-items: center; gap: 36px;" class="hidden md:flex">
+      <div style="display: flex; align-items: center; gap: 36px;" class="nav-links">
         <a href="#servicios" class="nav-link">Servicios</a>
         <a href="#nosotros" class="nav-link">Nosotros</a>
         <a href="#proceso" class="nav-link">Proceso</a>
@@ -868,8 +1186,8 @@
 
       <!-- CTA -->
       <div style="display: flex; align-items: center; gap: 10px;">
-        <a href="https://wa.me/51925593376?text=Hola%2C%20quiero%20agendar%20una%20llamada%20gratuita%20de%2015%20min%20con%20Desarroia" target="_blank" rel="noopener" class="btn-primary">
-          Agendar llamada
+        <a href="https://wa.me/51925593376?text=Hola%2C%20quiero%20agendar%20una%20llamada%20gratuita%20de%2015%20min%20con%20Desarroia" target="_blank" rel="noopener" class="btn-primary nav-cta">
+          <span>Agendar<span class="hide-sm"> llamada</span></span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
       </div>
@@ -877,18 +1195,21 @@
   </nav>
 
   <!-- ═══════════════ HERO ═══════════════ -->
-  <section style="position: relative; min-height: 100vh; display: flex; align-items: center; padding: 120px 0 80px; overflow: hidden;">
+  <section class="hero" style="position: relative; min-height: 100vh; display: flex; align-items: center; padding: 120px 0 80px; overflow: hidden;">
 
-    <!-- Glow orbs -->
-    <div class="orb" style="width: 700px; height: 700px; background: #7B4EFF; opacity: 0.07; top: -200px; left: -200px;"></div>
-    <div class="orb" style="width: 500px; height: 500px; background: #2649A1; opacity: 0.09; bottom: -100px; right: -100px;"></div>
-    <div class="orb" style="width: 300px; height: 300px; background: #F28948; opacity: 0.05; top: 50%; right: 30%;"></div>
+    <!-- Background film: tinted to the page palette, fades into the next section -->
+    <div class="hero-media" aria-hidden="true">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="media/hero-automatizaciones-poster.jpg">
+        <source src="media/hero-automatizaciones.mp4" type="video/mp4">
+      </video>
+      <div class="hero-tint"></div>
+      <div class="hero-shade"></div>
+      <div class="hero-dim"></div>
+    </div>
+    <div class="hero-fade" aria-hidden="true"></div>
 
-    <div style="max-width: 1280px; margin: 0 auto; padding: 0 32px; width: 100%;">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;" class="hero-grid">
-
-        <!-- LEFT: Text -->
-        <div class="fade-up" style="transition-delay: 0.05s;">
+    <div class="hero-inner" style="max-width: 1280px; margin: 0 auto; padding: 0 32px; width: 100%; position: relative; z-index: 2;">
+        <div class="hero-copy">
           <!-- Badge -->
           <div class="badge-orange" style="margin-bottom: 28px;">
             <span class="pulse" style="width: 6px; height: 6px; background: var(--orange); border-radius: 50%; display: block;"></span>
@@ -921,7 +1242,7 @@
           </div>
 
           <!-- Mini stats -->
-          <div style="display: flex; align-items: center; gap: 0;">
+          <div class="hero-stats" style="display: flex; align-items: center; gap: 0;">
             <div style="text-align: center; padding-right: 32px;">
               <div class="font-display" style="font-size: 2.4rem; color: var(--cream);">3</div>
               <div style="color: var(--muted); font-size: 0.72rem; font-weight: 500; margin-top: 2px; letter-spacing: 0.04em; text-transform: uppercase;">Sistemas en uso</div>
@@ -938,27 +1259,99 @@
             </div>
           </div>
         </div>
+    </div>
+  </section>
 
-        <!-- RIGHT: Visual mockup -->
-        <div style="position: relative; display: flex; justify-content: center;" class="hidden lg:flex">
+  <!-- ═══════════════ PROYECTOS (vitrina) ═══════════════ -->
+  <section id="proyectos" class="vit-section">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 32px;">
+      <div class="vit-layout">
 
-          <!-- Live product window -->
-          <div class="float-a" style="position: relative; z-index: 10; width: 100%; max-width: 560px;">
-            <div class="work-frame is-paused" style="border-radius: 18px;">
+        <div class="vit-intro fade-up">
+          <div class="work-sector">Trabajo reciente</div>
+          <h2 class="display-lg" style="color: var(--cream); margin-bottom: 18px;">LO QUE YA<br><span class="grad-purple">CONSTRUIMOS</span></h2>
+          <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.75; max-width: 340px;">
+            Recorridos reales de webs y sistemas que entregamos. Elige uno o deja que avancen solos.
+          </p>
+        </div>
+
+        <div class="vitrina fade-up" style="transition-delay: 0.12s;" aria-roledescription="carrusel" aria-label="Proyectos recientes">
+
+          <div class="vit-stage" id="vit-stage">
+            <article class="vit-card" data-slide="0" aria-roledescription="diapositiva" aria-label="1 de 4: Integra Bio Labs">
+              <div class="work-bar">
+                <span class="work-dot" style="background: #E9C22E;"></span>
+                <span class="work-dot" style="background: rgba(255,255,255,0.18);"></span>
+                <span class="work-dot" style="background: rgba(255,255,255,0.18);"></span>
+                <span class="work-url">integra bio labs · inicio</span>
+              </div>
+              <video muted playsinline preload="none" poster="media/integralabs-videopag-poster.jpg"
+                     aria-label="Recorrido por la web de Integra Bio Labs">
+                <source src="media/integralabs-videopag.mp4" type="video/mp4">
+              </video>
+            </article>
+
+            <article class="vit-card" data-slide="1" aria-roledescription="diapositiva" aria-label="2 de 4: Barbería">
               <div class="work-bar">
                 <span class="work-dot" style="background: #F28948;"></span>
                 <span class="work-dot" style="background: rgba(255,255,255,0.18);"></span>
                 <span class="work-dot" style="background: rgba(255,255,255,0.18);"></span>
+                <span class="work-url">ralban.pe / agenda</span>
+              </div>
+              <video muted playsinline preload="none" poster="media/videopagweb-poster.jpg"
+                     aria-label="Página web de barbería con agendamiento de citas">
+                <source src="media/videopagweb.mp4" type="video/mp4">
+              </video>
+            </article>
+
+            <article class="vit-card" data-slide="2" aria-roledescription="diapositiva" aria-label="3 de 4: Cotizaciones">
+              <div class="work-bar">
+                <span class="work-dot" style="background: #4A7BEF;"></span>
+                <span class="work-dot" style="background: rgba(255,255,255,0.18);"></span>
+                <span class="work-dot" style="background: rgba(255,255,255,0.18);"></span>
+                <span class="work-url">app · nueva cotización</span>
+              </div>
+              <video muted playsinline preload="none" poster="media/videocotizaciones_automaticas-poster.jpg"
+                     aria-label="Aplicación de cotizaciones automáticas">
+                <source src="media/videocotizaciones_automaticas.mp4" type="video/mp4">
+              </video>
+            </article>
+
+            <article class="vit-card" data-slide="3" aria-roledescription="diapositiva" aria-label="4 de 4: Dashboard">
+              <div class="work-bar">
+                <span class="work-dot" style="background: #9B76FF;"></span>
+                <span class="work-dot" style="background: rgba(255,255,255,0.18);"></span>
+                <span class="work-dot" style="background: rgba(255,255,255,0.18);"></span>
                 <span class="work-url">panel · reportes de ventas</span>
               </div>
-              <video muted loop playsinline preload="none" poster="media/videodashboard-poster.jpg"
-                     aria-label="Panel de reportes de ventas en funcionamiento">
+              <video muted playsinline preload="none" poster="media/videodashboard-poster.jpg"
+                     aria-label="Dashboard de reportes de ventas">
                 <source src="media/videodashboard.mp4" type="video/mp4">
               </video>
-              <button class="work-play" type="button" aria-label="Reproducir el panel de reportes">
-                <span><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+            </article>
+          </div>
+
+          <!-- Caption + controls -->
+          <div class="vit-caption">
+            <div aria-live="polite">
+              <div class="work-sector" id="vit-sector">Salud y bienestar · web de marca</div>
+              <div class="vit-title" id="vit-title">Integra Bio Labs</div>
+            </div>
+            <div class="vit-arrows">
+              <button type="button" class="vit-arrow" id="vit-prev" aria-label="Proyecto anterior">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button type="button" class="vit-arrow" id="vit-next" aria-label="Proyecto siguiente">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
             </div>
+          </div>
+
+          <div class="vit-tabs" role="tablist" aria-label="Elegir proyecto">
+            <button type="button" class="vit-tab" role="tab" data-go="0"><span class="vit-tab-label">Integra</span><span class="vit-tab-bar"><i></i></span></button>
+            <button type="button" class="vit-tab" role="tab" data-go="1"><span class="vit-tab-label">Barbería</span><span class="vit-tab-bar"><i></i></span></button>
+            <button type="button" class="vit-tab" role="tab" data-go="2"><span class="vit-tab-label">Cotizaciones</span><span class="vit-tab-bar"><i></i></span></button>
+            <button type="button" class="vit-tab" role="tab" data-go="3"><span class="vit-tab-label">Dashboard</span><span class="vit-tab-bar"><i></i></span></button>
           </div>
 
         </div>
@@ -1127,7 +1520,7 @@
     <div class="orb" style="width: 600px; height: 600px; background: #7B4EFF; opacity: 0.055; top: 50%; left: 55%; transform: translate(-50%, -50%);"></div>
 
     <div style="max-width: 1280px; margin: 0 auto; padding: 0 32px;">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+      <div class="about-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
 
         <!-- Left -->
         <div class="fade-up">
@@ -1177,7 +1570,7 @@
         </div>
 
         <!-- Right: Stats -->
-        <div class="fade-up" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; transition-delay: 0.2s;">
+        <div class="fade-up about-stats" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; transition-delay: 0.2s;">
           <div class="card" style="padding: 28px; text-align: center;">
             <div class="font-display grad-purple" style="font-size: 3.5rem; margin-bottom: 8px;">3</div>
             <div style="font-size: 0.85rem; font-weight: 600; color: var(--cream); margin-bottom: 4px;">Sistemas en uso</div>
@@ -1219,7 +1612,7 @@
       </div>
 
       <!-- Steps -->
-      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative;">
+      <div class="steps-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative;">
         <!-- Connector -->
         <div style="position: absolute; top: 23px; left: calc(12.5% + 16px); right: calc(12.5% + 16px); height: 1px; background: linear-gradient(to right, #7B4EFF, #4A7BEF, rgba(74,123,239,0.2)); z-index: 0;" class="hidden lg:block"></div>
 
@@ -1266,7 +1659,7 @@
         </h2>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+      <div class="testi-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
 
         <!-- T1 -->
         <div class="card fade-up" style="padding: 28px; transition-delay: 0.05s; display: flex; flex-direction: column;">
@@ -1322,7 +1715,7 @@
     <div class="orb" style="width: 700px; height: 700px; background: #7B4EFF; opacity: 0.07; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
 
     <div style="max-width: 860px; margin: 0 auto; padding: 0 32px; text-align: center;">
-      <div class="card-featured fade-up" style="padding: 72px 60px; position: relative; overflow: hidden; border-radius: 28px;">
+      <div class="card-featured fade-up cta-card" style="padding: 72px 60px; position: relative; overflow: hidden; border-radius: 28px;">
 
         <!-- Decorative corner glows -->
         <div style="position: absolute; top: 0; left: 0; width: 120px; height: 120px; background: radial-gradient(circle at top left, rgba(123,78,255,0.25), transparent); pointer-events: none;"></div>
@@ -1445,7 +1838,7 @@
           <form id="contact-form" onsubmit="handleContactSubmit(event)" style="display: flex; flex-direction: column; gap: 18px;">
 
             <!-- Row: Nombre + Email -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
               <div>
                 <label style="display: block; font-size: 0.75rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px;">Nombre</label>
                 <input type="text" name="nombre" placeholder="Tu nombre" required style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 12px 14px; color: var(--cream); font-family: 'Poppins', sans-serif; font-size: 0.88rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s; box-sizing: border-box;"
@@ -1626,6 +2019,196 @@
       });
     })();
 
+    // ═══ Hero film: intro zoom, scroll parallax, pause when out of view ═══
+    (function () {
+      const hero = document.querySelector('.hero');
+      const media = hero && hero.querySelector('.hero-media');
+      if (!media) return;
+      const video = media.querySelector('.hero-video');
+      const dim = media.querySelector('.hero-dim');
+      const inner = hero.querySelector('.hero-inner');
+      const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      const ready = () => video.classList.add('is-ready');
+      if (video.readyState >= 2) ready(); else video.addEventListener('loadeddata', ready, { once: true });
+      if (calm.matches) { video.pause(); video.removeAttribute('autoplay'); }
+
+      new IntersectionObserver(([entry]) => {
+        if (calm.matches) return;
+        if (entry.isIntersecting) video.play().catch(() => {}); else video.pause();
+      }).observe(hero);
+
+      let ticking = false;
+      function paint() {
+        ticking = false;
+        const h = hero.offsetHeight;
+        const y = Math.min(window.scrollY, h);
+        const p = y / h;
+        media.style.transform = `translate3d(0, ${y * 0.35}px, 0)`;
+        dim.style.opacity = (p * 0.75).toFixed(3);
+        inner.style.transform = `translate3d(0, ${y * -0.12}px, 0)`;
+        inner.style.opacity = (1 - Math.max(0, p - 0.25) * 1.4).toFixed(3);
+      }
+      if (!calm.matches) {
+        window.addEventListener('scroll', () => {
+          if (!ticking) { ticking = true; requestAnimationFrame(paint); }
+        }, { passive: true });
+        paint();
+      }
+    })();
+
+    // ═══ Hero showcase: stacked project cards that advance on their own ═══
+    (function () {
+      const root = document.querySelector('.vitrina');
+      if (!root) return;
+
+      const projects = [
+        { sector: 'Salud y bienestar · web de marca', title: 'Integra Bio Labs' },
+        { sector: 'Barbería · Lima', title: 'Web que agenda sola' },
+        { sector: 'Distribuidora · equipo comercial', title: 'Cotizaciones en minutos' },
+        { sector: 'Transporte y logística · gerencia', title: 'Dashboard de ventas' },
+      ];
+      const DURATION = 9000;
+
+      const stage = document.getElementById('vit-stage');
+      const cards = [...root.querySelectorAll('.vit-card')];
+      const tabs = [...root.querySelectorAll('.vit-tab')];
+      const bars = tabs.map(t => t.querySelector('.vit-tab-bar i'));
+      const sector = document.getElementById('vit-sector');
+      const title = document.getElementById('vit-title');
+      const caption = sector.parentElement;
+      const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const n = cards.length;
+
+      let active = 0;
+      let elapsed = 0;
+      let last = null;
+      let hovering = false;
+      let focused = false;
+      let onScreen = true;
+
+      const paused = () => calm.matches || hovering || focused || !onScreen || document.hidden;
+
+      function startVideo(i) {
+        const video = cards[i].querySelector('video');
+        if (video.preload !== 'auto') { video.preload = 'auto'; video.load(); }
+        video.currentTime = 0;
+        if (!calm.matches && onScreen) {
+          const p = video.play();
+          if (p) p.catch(() => {});
+        }
+        // Warm up the next clip so the swap doesn't flash a poster
+        const next = cards[(i + 1) % n].querySelector('video');
+        if (next.preload === 'none') next.preload = 'metadata';
+      }
+
+      function layout(outgoing) {
+        cards.forEach((card, i) => {
+          if (i === outgoing) return;
+          card.dataset.pos = String((i - active + n) % n);
+        });
+      }
+
+      function paintTabs() {
+        tabs.forEach((tab, i) => {
+          tab.setAttribute('aria-selected', i === active ? 'true' : 'false');
+          tab.tabIndex = i === active ? 0 : -1;
+          const fill = i < active ? 1 : i === active ? Math.min(elapsed / DURATION, 1) : 0;
+          bars[i].style.transform = `scaleX(${fill})`;
+        });
+      }
+
+      function goTo(target, dir) {
+        target = (target + n) % n;
+        if (target === active) return;
+        const prev = active;
+        const forward = dir ? dir > 0 : target > prev;
+
+        cards[prev].querySelector('video').pause();
+        active = target;
+        elapsed = 0;
+
+        if (forward) {
+          cards[prev].dataset.pos = 'out';
+          layout(prev);
+          setTimeout(() => { if (active !== prev) cards[prev].dataset.pos = String((prev - active + n) % n); }, 620);
+        } else {
+          cards[active].dataset.pos = 'in';
+          void cards[active].offsetWidth;
+          layout();
+        }
+
+        cards.forEach((card, i) => card.setAttribute('aria-hidden', i === active ? 'false' : 'true'));
+        sector.textContent = projects[active].sector;
+        title.textContent = projects[active].title;
+        caption.classList.remove('vit-swap');
+        void caption.offsetWidth;
+        caption.classList.add('vit-swap');
+
+        paintTabs();
+        startVideo(active);
+      }
+
+      function tick(now) {
+        if (last !== null && !paused()) {
+          elapsed += now - last;
+          if (elapsed >= DURATION) goTo(active + 1, 1);
+          else bars[active].style.transform = `scaleX(${elapsed / DURATION})`;
+        }
+        last = now;
+        requestAnimationFrame(tick);
+      }
+
+      // Controls
+      document.getElementById('vit-next').addEventListener('click', () => goTo(active + 1, 1));
+      document.getElementById('vit-prev').addEventListener('click', () => goTo(active - 1, -1));
+      tabs.forEach((tab, i) => tab.addEventListener('click', () => goTo(i)));
+      cards.forEach((card, i) => {
+        card.addEventListener('click', () => {
+          if (card.dataset.pos === '1') { goTo(i, 1); return; }
+          if (i === active && calm.matches) {
+            const v = card.querySelector('video');
+            if (v.paused) { v.preload = 'auto'; v.play().catch(() => {}); } else v.pause();
+          }
+        });
+        card.querySelector('video').addEventListener('ended', () => { if (i === active) goTo(active + 1, 1); });
+      });
+
+      root.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(active + 1, 1); tabs[active].focus(); }
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(active - 1, -1); tabs[active].focus(); }
+      });
+
+      // Swipe on touch screens
+      let startX = null;
+      stage.addEventListener('pointerdown', e => { startX = e.clientX; });
+      stage.addEventListener('pointerup', e => {
+        if (startX === null) return;
+        const dx = e.clientX - startX;
+        startX = null;
+        if (Math.abs(dx) > 45) goTo(active + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+      });
+
+      // Hold still while someone is looking closely
+      root.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hovering = true; });
+      root.addEventListener('pointerleave', () => { hovering = false; });
+      root.addEventListener('focusin', e => { focused = e.target.matches(':focus-visible'); });
+      root.addEventListener('focusout', e => { if (!root.contains(e.relatedTarget)) focused = false; });
+
+      new IntersectionObserver(entries => {
+        onScreen = entries[0].isIntersecting;
+        const v = cards[active].querySelector('video');
+        if (!onScreen) v.pause();
+        else if (!calm.matches && v.paused && v.preload === 'auto') v.play().catch(() => {});
+      }, { threshold: 0.3 }).observe(stage);
+
+      cards.forEach((card, i) => card.setAttribute('aria-hidden', i === active ? 'false' : 'true'));
+      layout();
+      paintTabs();
+      startVideo(0);
+      requestAnimationFrame(tick);
+    })();
+
     // Navbar scroll effect
     const navbar = document.getElementById('navbar');
     const onScroll = () => {
@@ -1633,24 +2216,6 @@
     };
     window.addEventListener('scroll', onScroll, { passive: true });
 
-    // Mobile hero grid fix
-    const heroGrid = document.querySelector('.hero-grid');
-    if (heroGrid && window.innerWidth < 1024) {
-      heroGrid.style.gridTemplateColumns = '1fr';
-    }
-
-    // Services grid mobile fix
-    const servGrid = document.querySelector('[style*="repeat(3, 1fr)"]');
-    function checkMobile() {
-      if (window.innerWidth < 768) {
-        if (servGrid) servGrid.style.gridTemplateColumns = '1fr';
-        if (heroGrid) heroGrid.style.gridTemplateColumns = '1fr';
-      } else if (window.innerWidth < 1024) {
-        if (servGrid) servGrid.style.gridTemplateColumns = 'repeat(2, 1fr)';
-      }
-    }
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
   </script>
 
   <!-- ═══════════════ EXPANDABLE CHAT WIDGET ═══════════════ -->
