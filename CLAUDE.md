@@ -1,5 +1,13 @@
 # CLAUDE.md — Frontend Website Rules
 
+## Estructura de esta carpeta
+Esta carpeta es **solo la Landing de Desarroia** (repo git `desarroiape/Desaroia.pe-landing`).
+- `index.html`, `media/` (videos + posters), `brand_assets/` (logos y brand board).
+- Los `.mov` son las grabaciones originales de `media/*.mp4` (ignorados en git).
+- `serve.mjs`, `screenshot*.mjs`, `node_modules/` → servidor local y capturas.
+- Otros proyectos viven en su propia carpeta fuera de aquí (p. ej. `../gestor-proveedores`,
+  `../valorant`). No crear subproyectos dentro de esta carpeta.
+
 ## Always Do First
 - **Invoke the `frontend-design` skill** before writing any frontend code, every session, no exceptions.
 
@@ -15,7 +23,7 @@
 - If the server is already running, do not start a second instance.
 
 ## Screenshot Workflow
-- Puppeteer is installed at `C:/Users/nateh/AppData/Local/Temp/puppeteer-test/`. Chrome cache is at `C:/Users/nateh/.cache/puppeteer/`.
+- Puppeteer is installed locally in `node_modules/` (devDependency in `package.json`).
 - **Always screenshot from localhost:** `node screenshot.mjs http://localhost:3000`
 - Screenshots are saved automatically to `./temporary screenshots/screenshot-N.png` (auto-incremented, never overwritten).
 - Optional label suffix: `node screenshot.mjs http://localhost:3000 label` → saves as `screenshot-N-label.png`
