@@ -1,0 +1,47 @@
+/* DesarroIA — variables de marca */
+/* Fuentes: <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap"> */
+:root {
+  --surface-0: #ffffff;
+  --surface-1: #f4f4f5;
+  --surface-inverse: #0b0b0c;
+  --ink: #0b0b0c;
+  --ink-muted: #5b5b63;
+  --ink-inverse: #ffffff;
+  --line: #e4e4e7;
+  --line-strong: #8a8a93;
+  --accent: #2b44ff;
+  --accent-strong: #1f33d6;
+  --accent-tint: #eef1ff;
+  --on-accent: #ffffff;
+  --success: #0f7a4a;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
+  --space-6: 96px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface-0: #0b0b0c;
+    --surface-1: #16161a;
+    --surface-inverse: #ffffff;
+    --ink: #f5f5f7;
+    --ink-muted: #a1a1aa;
+    --ink-inverse: #0b0b0c;
+    --line: #2a2a31;
+    --line-strong: #6b6b75;
+    --accent: #7c8cff;
+    --accent-strong: #a3aeff;
+    --accent-tint: #1a1f45;
+    --on-accent: #0b0b0c;
+    --success: #4ade80;
+  }
+}
