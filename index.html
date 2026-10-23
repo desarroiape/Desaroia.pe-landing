@@ -881,7 +881,7 @@
   .vit-card[data-pos="0"] { transform: none; opacity: 1; z-index: 4; }
   .vit-card[data-pos="1"] { transform: translateY(-26px) scale(0.93); opacity: 0.5; z-index: 3; cursor: pointer; }
   .vit-card[data-pos="2"] { transform: translateY(-48px) scale(0.86); opacity: 0.22; z-index: 2; }
-  .vit-card[data-pos="3"] { transform: translateY(-64px) scale(0.8); opacity: 0; z-index: 1; }
+  .vit-card[data-pos="3"], .vit-card[data-pos="4"], .vit-card[data-pos="5"] { transform: translateY(-64px) scale(0.8); opacity: 0; z-index: 1; }
   .vit-card[data-pos="out"] {
     transform: translate(-34%, 18px) rotate(-5deg) scale(0.94);
     opacity: 0;
@@ -897,6 +897,15 @@
     transition: none;
   }
   .vit-card[data-pos="1"]:hover { opacity: 0.7; }
+
+  /* Etiquetas de la pantalla dividida (formulario | correo) */
+  .vit-split { position: absolute; left: 0; right: 0; bottom: 12px; display: grid; grid-template-columns: 1fr 1fr; pointer-events: none; }
+  .vit-split span {
+    justify-self: center;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em;
+    color: #fff; background: rgba(11, 11, 12, 0.82);
+    padding: 6px 10px; border-radius: 999px;
+  }
 
   .vit-caption {
     display: flex;
@@ -947,7 +956,7 @@
 
   .vit-tabs {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 10px;
     margin-top: 22px;
   }
@@ -997,6 +1006,8 @@
     .vit-card[data-pos="2"] { transform: translateY(-34px) scale(0.88); }
     .vit-tabs { gap: 6px; }
     .vit-tab-label { font-size: 0.66rem; }
+    .vit-split { bottom: 8px; }
+    .vit-split span { font-size: 9px; padding: 4px 7px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .vit-card, .vit-card[data-pos="out"], .vit-arrow, .vit-arrow:hover { transition: none; }
@@ -1429,20 +1440,28 @@
   }
   .pl-note b { color: var(--ink); font-weight: 600; }
 
-  /* Bloque "a medida" bajo los planes */
+  /* Bloque "servicios individuales y a medida" bajo los planes: banda negra para que no pase desapercibido */
   .pl-custom {
     margin-top: 40px;
-    display: flex; align-items: center; justify-content: space-between; gap: 24px 48px; flex-wrap: wrap;
-    padding: 32px 36px;
-    background: var(--surface-0);
-    border: 1px dashed var(--line-strong);
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 28px 56px;
+    padding: 40px 44px;
     border-radius: var(--radius-lg);
+    box-shadow: 0 1px 2px rgba(11, 11, 12, 0.08), 0 32px 64px -36px rgba(11, 11, 12, 0.55);
   }
-  .pl-custom > div:first-child { flex: 1 1 420px; }
-  .pl-custom-title { font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; letter-spacing: -0.02em; line-height: 1.25; color: var(--ink); }
-  .pl-custom p { color: var(--ink-muted); font-size: 0.92rem; line-height: 1.65; margin-top: 8px; max-width: 620px; }
-  .pl-custom-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-  .pl-custom-actions a { text-decoration: none; }
+  .pl-custom-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 2.4vw, 30px); letter-spacing: -0.025em; line-height: 1.15; color: var(--ink); margin-top: 14px; }
+  .pl-custom p { color: var(--ink-muted); font-size: 0.95rem; line-height: 1.65; margin-top: 10px; max-width: 600px; }
+  .pl-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .pl-chips li {
+    font-size: 0.82rem; font-weight: 500; color: var(--ink);
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface-1);
+  }
+  .pl-chips li.is-custom { color: var(--accent-text); border-color: var(--accent-text); background: var(--accent-tint); }
+  .pl-custom-actions { display: flex; flex-direction: column; gap: 12px; }
+  .pl-custom-actions a { text-decoration: none; justify-content: center; }
+  :root[data-theme="dark"] .pl-custom { background-color: #16161a; border: 1px solid #2a2a31; box-shadow: none; }
 
   /* Preguntas frecuentes */
   .faq { max-width: 860px; margin: 88px auto 0; }
@@ -1474,17 +1493,17 @@
   @media (max-width: 1023px) {
     .pl-grid { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; gap: 28px; }
     .pl-for { min-height: 0; }
-    .pl-custom { max-width: 520px; margin-left: auto; margin-right: auto; }
+    .pl-custom { grid-template-columns: 1fr; max-width: 520px; margin-left: auto; margin-right: auto; }
   }
   @media (max-width: 767px) {
     .pl-card { padding: 30px 22px 22px; }
-    .pl-custom { padding: 24px 22px; }
-    .pl-custom-actions a { flex: 1 1 100%; justify-content: center; }
+    .pl-custom { padding: 32px 22px; }
     .faq { margin-top: 64px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .faq-item summary svg { transition: none; }
   }
+
 
   </style>
   <meta name="facebook-domain-verification" content="d44l9bcvah4yuda23ldjoz69ymkb58" />
@@ -1607,7 +1626,7 @@
         <div class="vitrina fade-up" style="transition-delay: 0.12s;" aria-roledescription="carrusel" aria-label="Proyectos recientes">
 
           <div class="vit-stage" id="vit-stage">
-            <article class="vit-card" data-slide="0" aria-roledescription="diapositiva" aria-label="1 de 4: Integra Bio Labs">
+            <article class="vit-card" data-slide="0" aria-roledescription="diapositiva" aria-label="1 de 6: Integra Bio Labs">
               <div class="work-bar">
                 <span class="work-dot"></span>
                 <span class="work-dot"></span>
@@ -1620,7 +1639,47 @@
               </video>
             </article>
 
-            <article class="vit-card" data-slide="1" aria-roledescription="diapositiva" aria-label="2 de 4: Barbería">
+            <article class="vit-card" data-slide="1" aria-roledescription="diapositiva" aria-label="2 de 6: Chatbot de WhatsApp">
+              <div class="work-bar">
+                <span class="work-dot"></span>
+                <span class="work-dot"></span>
+                <span class="work-dot"></span>
+                <span class="work-url">whatsapp · chat con cliente</span>
+              </div>
+              <video muted playsinline preload="none" poster="media/chatbot-whatsapp-poster.jpg"
+                     aria-label="Chatbot de WhatsApp que cotiza, calcula el delivery y recibe el pago por Yape o Plin">
+                <source src="media/chatbot-whatsapp.mp4" type="video/mp4">
+              </video>
+            </article>
+
+            <article class="vit-card" data-slide="2" aria-roledescription="diapositiva" aria-label="3 de 6: CRM con leads">
+              <div class="work-bar">
+                <span class="work-dot"></span>
+                <span class="work-dot"></span>
+                <span class="work-dot"></span>
+                <span class="work-url">cartera crm · contactos</span>
+              </div>
+              <video muted playsinline preload="none" poster="media/crm-leads-poster.jpg"
+                     aria-label="CRM con contactos, leads, conversaciones de WhatsApp y agenda">
+                <source src="media/crm-leads.mp4" type="video/mp4">
+              </video>
+            </article>
+
+            <article class="vit-card" data-slide="3" aria-roledescription="diapositiva" aria-label="4 de 6: Cotizaciones">
+              <div class="work-bar">
+                <span class="work-dot"></span>
+                <span class="work-dot"></span>
+                <span class="work-dot"></span>
+                <span class="work-url">cotizador → correo del cliente</span>
+              </div>
+              <video muted playsinline preload="none" poster="media/cotizacion-split-poster.jpg"
+                     aria-label="A la izquierda se llena el formulario de cotización; a la derecha la cotización llega al correo del cliente con el PDF">
+                <source src="media/cotizacion-split.mp4" type="video/mp4">
+              </video>
+              <div class="vit-split" aria-hidden="true"><span>Llenas el formulario</span><span>Le llega al cliente</span></div>
+            </article>
+
+            <article class="vit-card" data-slide="4" aria-roledescription="diapositiva" aria-label="5 de 6: Barbería">
               <div class="work-bar">
                 <span class="work-dot"></span>
                 <span class="work-dot"></span>
@@ -1633,20 +1692,7 @@
               </video>
             </article>
 
-            <article class="vit-card" data-slide="2" aria-roledescription="diapositiva" aria-label="3 de 4: Cotizaciones">
-              <div class="work-bar">
-                <span class="work-dot"></span>
-                <span class="work-dot"></span>
-                <span class="work-dot"></span>
-                <span class="work-url">app · nueva cotización</span>
-              </div>
-              <video muted playsinline preload="none" poster="media/videocotizaciones_automaticas-poster.jpg"
-                     aria-label="Aplicación de cotizaciones automáticas">
-                <source src="media/videocotizaciones_automaticas.mp4" type="video/mp4">
-              </video>
-            </article>
-
-            <article class="vit-card" data-slide="3" aria-roledescription="diapositiva" aria-label="4 de 4: Dashboard">
+            <article class="vit-card" data-slide="5" aria-roledescription="diapositiva" aria-label="6 de 6: Dashboard">
               <div class="work-bar">
                 <span class="work-dot"></span>
                 <span class="work-dot"></span>
@@ -1678,9 +1724,11 @@
 
           <div class="vit-tabs" role="tablist" aria-label="Elegir proyecto">
             <button type="button" class="vit-tab" role="tab" data-go="0"><span class="vit-tab-label">Integra</span><span class="vit-tab-bar"><i></i></span></button>
-            <button type="button" class="vit-tab" role="tab" data-go="1"><span class="vit-tab-label">Barbería</span><span class="vit-tab-bar"><i></i></span></button>
-            <button type="button" class="vit-tab" role="tab" data-go="2"><span class="vit-tab-label">Cotizaciones</span><span class="vit-tab-bar"><i></i></span></button>
-            <button type="button" class="vit-tab" role="tab" data-go="3"><span class="vit-tab-label">Dashboard</span><span class="vit-tab-bar"><i></i></span></button>
+            <button type="button" class="vit-tab" role="tab" data-go="1"><span class="vit-tab-label">Chatbot</span><span class="vit-tab-bar"><i></i></span></button>
+            <button type="button" class="vit-tab" role="tab" data-go="2"><span class="vit-tab-label">CRM</span><span class="vit-tab-bar"><i></i></span></button>
+            <button type="button" class="vit-tab" role="tab" data-go="3"><span class="vit-tab-label">Cotizador</span><span class="vit-tab-bar"><i></i></span></button>
+            <button type="button" class="vit-tab" role="tab" data-go="4"><span class="vit-tab-label">Barbería</span><span class="vit-tab-bar"><i></i></span></button>
+            <button type="button" class="vit-tab" role="tab" data-go="5"><span class="vit-tab-label">Panel</span><span class="vit-tab-bar"><i></i></span></button>
           </div>
 
         </div>
@@ -2094,7 +2142,7 @@
               <li>1 secuencia de seguimiento automático por correo</li>
               <li>1 automatización de procesos internos</li>
               <li>Reporte de resultados mensual</li>
-              <li>Soporte con respuesta en 48 h</li>
+              <li>Soporte con respuesta en 12 h</li>
             </ul>
             <a href="https://wa.me/51925593376?text=Hola%2C%20me%20interesa%20el%20plan%20Esencial" target="_blank" rel="noopener" class="btn-ghost">Quiero el plan Esencial</a>
           </article>
@@ -2112,7 +2160,7 @@
               <li>3 secuencias de seguimiento automático por correo</li>
               <li>2 automatizaciones de procesos internos</li>
               <li>Reporte de resultados mensual</li>
-              <li>Soporte con respuesta en 24 h</li>
+              <li>Soporte con respuesta inmediata</li>
             </ul>
             <a href="https://wa.me/51925593376?text=Hola%2C%20me%20interesa%20el%20plan%20Crecimiento" target="_blank" rel="noopener" class="btn-primary">
               Quiero el plan Crecimiento
@@ -2132,7 +2180,7 @@
               <li>Seguimiento por correo ilimitado + campañas</li>
               <li>4 automatizaciones de procesos internos</li>
               <li>Reporte quincenal + reunión de resultados</li>
-              <li>Soporte prioritario</li>
+              <li>Soporte prioritario con respuesta inmediata</li>
             </ul>
             <a href="https://wa.me/51925593376?text=Hola%2C%20me%20interesa%20el%20plan%20Integral" target="_blank" rel="noopener" class="btn-ghost">Quiero el plan Integral</a>
           </article>
@@ -2145,15 +2193,23 @@
         </div>
       </div>
 
-      <!-- A medida -->
-      <div class="pl-custom fade-up">
+      <!-- Servicios individuales y a medida -->
+      <div class="pl-custom inverse fade-up">
         <div>
-          <h3 class="pl-custom-title">¿Buscas un servicio específico o algo a tu medida?</h3>
-          <p>Si solo necesitas un chatbot, un CRM o una automatización puntual, o tu negocio pide algo distinto, cuéntanos qué quieres resolver y armamos una propuesta para ti.</p>
+          <div class="badge-purple">Servicios individuales y a medida</div>
+          <h3 class="pl-custom-title">¿No necesitas un plan completo?</h3>
+          <p>También puedes contratar solo el servicio que te hace falta o pedirnos una solución hecha para tu negocio. Escríbenos, cuéntanos qué quieres resolver y te enviamos una propuesta con precio.</p>
+          <ul class="pl-chips" aria-label="Servicios que puedes contratar por separado">
+            <li>Chatbot de WhatsApp con IA</li>
+            <li>CRM y seguimiento automático</li>
+            <li>Clientes potenciales nuevos</li>
+            <li>Automatizaciones de procesos</li>
+            <li class="is-custom">Proyecto a tu medida</li>
+          </ul>
         </div>
         <div class="pl-custom-actions">
-          <a href="https://wa.me/51925593376?text=Hola%2C%20busco%20un%20servicio%20espec%C3%ADfico%20o%20algo%20a%20medida%20para%20mi%20negocio" target="_blank" rel="noopener" class="btn-primary">
-            Escríbenos por WhatsApp
+          <a href="https://wa.me/51925593376?text=Hola%2C%20me%20interesa%20un%20servicio%20individual%20o%20personalizado%20para%20mi%20negocio" target="_blank" rel="noopener" class="btn-primary">
+            Pedir propuesta por WhatsApp
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
           <a href="#contacto" class="btn-ghost">Dejar un mensaje</a>
@@ -2637,13 +2693,15 @@
       const root = document.querySelector('.vitrina');
       if (!root) return;
 
+      // duration: ms each slide stays on screen
       const projects = [
-        { sector: 'Salud y bienestar · web de marca', title: 'Integra Bio Labs' },
-        { sector: 'Barbería · Lima', title: 'Web que agenda sola' },
-        { sector: 'Distribuidora · equipo comercial', title: 'Cotizaciones en minutos' },
-        { sector: 'Transporte y logística · gerencia', title: 'Dashboard de ventas' },
+        { sector: 'Salud y bienestar · web de marca', title: 'Integra Bio Labs', duration: 4500 },
+        { sector: 'Perfumería · ventas por WhatsApp', title: 'Chatbot que vende y cobra', duration: 10500 },
+        { sector: 'Ventas · CRM + clientes potenciales', title: 'CRM con leads y WhatsApp', duration: 14000 },
+        { sector: 'Distribuidora · equipo comercial', title: 'Cotizaciones en minutos', duration: 10000 },
+        { sector: 'Barbería · Lima', title: 'Web que agenda sola', duration: 9000 },
+        { sector: 'Transporte y logística · gerencia', title: 'Dashboard de ventas', duration: 9000 },
       ];
-      const DURATION = 9000;
 
       const stage = document.getElementById('vit-stage');
       const cards = [...root.querySelectorAll('.vit-card')];
@@ -2688,7 +2746,7 @@
         tabs.forEach((tab, i) => {
           tab.setAttribute('aria-selected', i === active ? 'true' : 'false');
           tab.tabIndex = i === active ? 0 : -1;
-          const fill = i < active ? 1 : i === active ? Math.min(elapsed / DURATION, 1) : 0;
+          const fill = i < active ? 1 : i === active ? Math.min(elapsed / projects[i].duration, 1) : 0;
           bars[i].style.transform = `scaleX(${fill})`;
         });
       }
@@ -2727,8 +2785,8 @@
       function tick(now) {
         if (last !== null && !paused()) {
           elapsed += now - last;
-          if (elapsed >= DURATION) goTo(active + 1, 1);
-          else bars[active].style.transform = `scaleX(${elapsed / DURATION})`;
+          if (elapsed >= projects[active].duration) goTo(active + 1, 1);
+          else bars[active].style.transform = `scaleX(${elapsed / projects[active].duration})`;
         }
         last = now;
         requestAnimationFrame(tick);
