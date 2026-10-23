@@ -7,6 +7,17 @@
   <!-- Página de confirmación: Google Ads la usa para contar contactos; no debe salir en Google -->
   <meta name="robots" content="noindex, nofollow">
   <link rel="canonical" href="https://desarroiape.com/gracias/">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HMMQB1RSV0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HMMQB1RSV0');
+    // Reaching this page means the contact form was sent
+    gtag('event', 'generate_lead', { method: 'formulario' });
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">

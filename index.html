@@ -172,6 +172,15 @@
 }
   </script>
 
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HMMQB1RSV0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HMMQB1RSV0');
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -2673,6 +2682,21 @@
       // The thank-you page is what Google Ads counts as a contact request
       window.location.href = '/gracias/';
     }
+  </script>
+
+  <script>
+    // Every WhatsApp or email click is a lead for Analytics / Google Ads
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href*="wa.me/"], a[href^="mailto:"]');
+      if (!a || typeof gtag !== 'function') return;
+      const label = (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80);
+      const section = a.closest('section[id], nav, footer');
+      gtag('event', 'generate_lead', {
+        method: a.href.startsWith('mailto:') ? 'email' : 'whatsapp',
+        link_text: label,
+        page_section: section ? (section.id || section.tagName.toLowerCase()) : 'otro',
+      });
+    });
   </script>
 
   <!-- ═══════════════ FOOTER ═══════════════ -->
