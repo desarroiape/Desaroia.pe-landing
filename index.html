@@ -2623,10 +2623,6 @@
               <svg id="contact-btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
 
-            <!-- Success message -->
-            <div id="contact-success" style="display: none; background: var(--surface-0); border: 1px solid var(--success); border-radius: var(--radius-md); padding: 14px 18px; color: var(--success); font-size: 0.88rem; text-align: center;">
-              ✓ &nbsp;Mensaje enviado. Te contactaremos pronto.
-            </div>
 
           </form>
         </div>
@@ -2651,7 +2647,6 @@
       const btn = document.getElementById('contact-submit-btn');
       const btnText = document.getElementById('contact-btn-text');
       const arrow = document.getElementById('contact-btn-arrow');
-      const success = document.getElementById('contact-success');
 
       btn.disabled = true;
       btn.style.opacity = '0.7';
@@ -2672,12 +2667,11 @@
           body: JSON.stringify(data),
         });
       } catch (_) {
-        // Fail silently — success message shows regardless
+        // Fail silently — the visitor still lands on the thank-you page
       }
 
-      form.reset();
-      btn.style.display = 'none';
-      success.style.display = 'block';
+      // The thank-you page is what Google Ads counts as a contact request
+      window.location.href = '/gracias/';
     }
   </script>
 
